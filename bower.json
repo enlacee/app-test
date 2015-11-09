@@ -1,0 +1,22 @@
+{
+  "name": "Game Test",
+  "authors": [
+    "Anibal C <detops.tk@gmail.com>"
+  ],
+  "description": "Game page home and play",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "SoundManager2": "soundmanager2#*"
+  }
+}
