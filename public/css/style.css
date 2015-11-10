@@ -3,10 +3,20 @@
 }
 
 .my-header {
-	height:90px;
+	height:85px;
+	border:1px solid gray;
 }
-
+.my-box-left{
+	border:1px solid blue;
+}
+.my-box-right{
+	border:1px solid red;
+}
 
 .product .img-responsive {
     margin: 0 auto;
+}
+.my-img-center img {
+    display:block;
+    margin:auto;
 }
