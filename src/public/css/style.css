@@ -12,12 +12,36 @@
 .my-box-right{
 	border:1px solid red;
 }
-
 .product .img-responsive {
     margin: 0 auto;
 }
 .my-img-center img {
     display:block;
     margin:auto;
+}
+.popup-hand-left {
+    display: block;
+    position: fixed;
+    bottom: -1%;
+    width: auto;
+    left: 0px;
+    margin: 0 1.5%;
+    z-index: 1;
+    background: red;
+}
+.popup-hand-right {
+    display: block;
+    position: fixed;
+    bottom: -1%;
+    width: auto;
+    right: 0px;
+    margin: 0 1.5%;
+    z-index: 1;
+    background: blue;
+}
+/* view */
+.wrapper {
+	height: 100vh;
+	background-color: yellow;
 }
 

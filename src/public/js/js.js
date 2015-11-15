@@ -10,8 +10,10 @@
 		dom_id_preload: '#preload',
 		dom_id_escenario_titulo: '#escenario-titulo',
 		dom_id_escenario_audio: '#escenario-audio',
-		dom_id_imagen: 'imagen',
-		//form
+		dom_id_imagen: '#imagen',
+		// evidencia
+		dom_id_evidencia_texto: '#evidencia-texto',
+		// form
 		dom_id_form_puntos: '#form-puntos',
 		dom_id_form_opcion_respuesta: '#form-opcion-respuesta',
 		dom_id_form_respuesta: '#form-respuesta',
