@@ -17,8 +17,8 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.5",
-    "SoundManager2": "soundmanager2#*",
     "jquery-storage-api": "jQuery-Storage-API#~1.7.5",
-    "jquery.easing": "~1.3.1"
+    "jquery.easing": "~1.3.1",
+    "font-awesome": "~4.4.0"
   }
 }

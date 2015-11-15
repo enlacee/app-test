@@ -8,7 +8,13 @@
 	var VARS = {
 		api_url: 'http://localhost/acopitan/free/app_test_api/home/index',
 		dom_id_preload: '#preload',
-		dom_id_escenario_title: 'escenario-title',
+		dom_id_escenario_titulo: '#escenario-titulo',
+		dom_id_escenario_audio: '#escenario-audio',
+		dom_id_imagen: 'imagen',
+		//form
+		dom_id_form_puntos: '#form-puntos',
+		dom_id_form_opcion_respuesta: '#form-opcion-respuesta',
+		dom_id_form_respuesta: '#form-respuesta',
 	};
 
 
