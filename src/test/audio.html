@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>App test</title>
+		<link rel="stylesheet" href="../public/lib/bootstrap/dist/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="../public/css/base.css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="../public/css/style.css" media="screen" charset="utf-8">
+        <script type="text/javascript"><!-- application/ld+json -->
+        var context = { "@context" : "http://schema.org", "@type" : "Organization", "name" : "App Test", "url" : "http://localhost/acopitan/free/app_test/src/", "logo": "" }
+        </script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="container">
+				audio
+			</div>
+		</div>
+
+
+		<!-- HANDS END -->
+		<!-- libs -->
+		<script charset="utf-8" type="text/javascript" src="../public/lib/jquery/dist/jquery.js">
+		</script>
+		<script charset="utf-8" type="text/javascript" src="../public/lib/SoundManager2/script/soundmanager2.js">
+		</script>
+        <script charset="utf-8" type="text/javascript">
+        $(document).ready(function(){
+            
+            soundManager.setup({
+            url: context.url + '/public/lib/SoundManager2/swf/',
+            flashVersion: 9, // optional: shiny features (default = 8)
+            // optional: ignore Flash where possible, use 100% HTML5 mode
+            // preferFlash: false,
+            onready: function() {
+                
+              soundManager.createSound({
+                id: 'mySound',
+                url: context.url + '/public/audio/s1.mp3',
+                autoLoad: true,
+                autoPlay: true,
+                onload: function() {
+                  alert('The sound '+this.id+' loaded!');
+                },
+                volume: 50
+              });
+              
+            }
+          });
+          
+        });
+        </script>
+	</body>
+</html>
