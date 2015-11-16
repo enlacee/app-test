@@ -6,7 +6,7 @@
 /*$(function(){*/
 
 	var VARS = {
-		api_url: 'http://localhost/acopitan/free/app_test_api/home/index',
+		api_url: 'data.json', //'http://localhost/acopitan/free/app_test_api/home/index',
 		dom_id_preload: '#preload',
 		dom_id_escenario_titulo: '#escenario-titulo',
 		dom_id_escenario_audio: '#escenario-audio',
