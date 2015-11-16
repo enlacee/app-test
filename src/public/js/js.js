@@ -60,7 +60,7 @@
 				if (me.indice > (me.localData.length-1)) {
 					alert("juego se termino! " + indice)
 				} else {
-					me.escenariocargarData(me.indice, me.localData[me.indice]);
+					me.escenarioCargarData(me.indice, me.localData[me.indice]);
 					me.escenarioIniciarJuego(me.indice, me.localData[me.indice]);
 				}
 			} else {
@@ -69,14 +69,12 @@
 
 			console.log('this.localData', this.localData)
 		},
-		// load app
-		escenariocargarData: function(indice, data) {
+		// Escenario : pintar todo el escenario
+		escenarioCargarData: function(indice, data) {
 			var me = this;
 			var indiceMas1 = indice + 1;
 			// cambiar data escenario.
-			$(VARS.dom_id_escenario_audio).text('Escenario '+ indiceMas1);
-
-			//$(VARS.dom_id_escenario_audio).append(elementAudio);
+			$(VARS.dom_id_escenario_titulo).text('Escenario '+ indiceMas1);
 
 		},
 		escenarioIniciarJuego: function(indice, data) {
@@ -97,15 +95,23 @@
 				if (indice > (data.length-1)) {
 					alert("juego se termino! " + indiceEvidencia)
 				} else {
-					//me.evidenciaCargarData(indice, data[indice]);
-					//me.evidenciaInciarJuego(indice, me.localData[me.indiceEvidencia]);
+					me.evidenciaCargarData(indice, data[indice]);
+					me.evidenciaIniciarJuego(indice, data[indice]);
 				}
 			} else {
 				alert("no existe data Evidencia");
 			}
         },
-        
-        
+        evidenciaCargarData: function(indice, data) {
+            // contruyendo botones con eventos
+            $(VARS.dom_id_evidencia_texto).text(data.texto);
+            $(VARS.dom_id_imagen).attr('src', context.url + data.imagen);
+        },
+        evidenciaIniciarJuego: function(indice, data) {
+            var me = this;
+			// escenario sound
+            me.helpPlayAudioEvidencia(data.audio);
+        },
         
 
 		/*
@@ -113,24 +119,25 @@
 		* HELPER
 		************************************************************
 		*/
-		helpPlayAudioEscenario: function(sourceUrl, dataEvidencia) {
+		helpPlayAudioEscenario: function(sourceUrl) {
             var me = this;
             soundManager.createSound({
                 id: 'mySound',
                 url: context.url + '/' + sourceUrl,
-                volume:100,
                 onfinish: function() {
                     // al terminar audio
-                    me.helpPlayAudioEvidencia()
+                    me.swichEvidencia();
                 }
             });
             soundManager.play('mySound');
 		},
-        helpPlayAudioEvidencia: function(url) {
+        helpPlayAudioEvidencia: function(sourceUrl) {
             soundManager.createSound({
-                url: context.url + '/' + url,
+                id: 'mySound2',
+                url: context.url + '/' + sourceUrl,
                 onfinish: function() {alert("helpPlayAudioEvidencia")}
             });
+            soundManager.play('mySound2');
         }
         
 
