@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>App test</title>
+		<link rel="stylesheet" href="../public/lib/bootstrap/dist/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="../public/css/base.css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="../public/css/style.css" media="screen" charset="utf-8">
+        <script type="text/javascript"><!-- application/ld+json -->
+        var context = { "@context" : "http://schema.org", "@type" : "Organization", "name" : "App Test", "url" : "http://localhost/acopitan/free/app_test/src/", "logo": "" }
+        </script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="container">
+				audio
+                <div id="result">...</div>
+			</div>
+		</div>
+
+
+		<!-- HANDS END -->
+		<!-- libs -->
+		<script charset="utf-8" type="text/javascript" src="../public/lib/jquery/dist/jquery.js">
+		</script>
+		<script charset="utf-8" type="text/javascript" src="../public/lib/jsrender/jsrender.js">
+		</script>
+        <script charset="utf-8" type="text/javascript">
+        $(document).ready(function(){
+			
+			var data_evidencia = {"data_evidencia": [{
+                "id_evidencia": "1",
+                "imagen": "public\/image\/evidencias\/1.1.png",
+                "texto": "CAE de una altura de 03 metros. Al caer se lastima la pierna izquierda.",
+                "audio": "public\/audio\/evidencias\/1\/1.1.ogg",
+                "id_formulario": "1",
+                "respuesta": "1",
+                "id_escenario_evidencia": "1",
+                "id_escenario": "1",
+                "data_formulario": [{
+                        "id_alternativa": "1",
+                        "description": "accidente"
+                    }, {
+                        "id_alternativa": "2",
+                        "description": "incidente"
+                    }]
+            }]};
+			
+			$.each(data_evidencia, function(index1, value1){
+				$.each(value1,function(index2, value2){
+					$.each(value2.data_formulario, function(index3, value3){
+						if (value2.respuesta == value3.id_alternativa) {
+							value3.respuesta = true;
+						} else {
+							value3.respuesta = false;
+						}
+					});
+				});
+			});
+			
+			console.log('data_evidencia', data_evidencia)
+			
+			var row = '{{for data_formulario}}<div class="row"><div class="col-md-12"><button class="col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5" data-respuesta="{{:respuesta}}">{{:~upper(description)}}</button></div></div>{{/for}}';
+
+			var tmpl = $.templates(row);
+			
+			var myHelpers = {
+				upper: function(val) { return val.toUpperCase(); },
+				title: "Sir"
+			};
+
+			var html = tmpl.render(data_evidencia.data_evidencia[0], myHelpers);
+			$('#result').html(html);
+
+          
+        });
+        </script>
+
+	</body>
+</html>
