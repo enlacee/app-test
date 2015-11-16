@@ -6,6 +6,9 @@
 		<link rel="stylesheet" type="text/css" href="public/lib/font-awesome/css/font-awesome.css">
 		<link rel="stylesheet" href="public/css/base.css" media="screen" charset="utf-8">
 		<link rel="stylesheet" href="public/css/style.css" media="screen" charset="utf-8">
+        <script type="text/javascript"><!-- application/ld+json -->
+        var context = { "@context" : "http://schema.org", "@type" : "Organization", "name" : "App Test", "url" : "http://localhost/acopitan/free/app_test/src/", "logo": "", "sameAs" : [ "#", "#"] }
+        </script>
 	</head>
 	<body>
 		<div class="wrapper">
@@ -71,7 +74,7 @@
 
 						<hr>
 
-						<div id="form-opcion-respuesta" clas="margin-bottom-10">
+						<div id="form-opcion-respuesta" class="margin-bottom-10">
 							<div class="row">
 								<div class="col-md-12">
 									<button class="col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5">ACCIDENTE</button>
@@ -113,7 +116,7 @@
 
 					</div>
 				</div>
-			<div>
+			</div>
 		</div>
 
 
@@ -130,6 +133,28 @@
 		<!-- libs -->
 		<script charset="utf-8" type="text/javascript" src="public/lib/jquery/dist/jquery.js">
 		</script>
+		<script charset="utf-8" type="text/javascript" src="public/lib/SoundManager2/script/soundmanager2.js">
+		</script>
 		<script charset="utf-8" type="text/javascript" src="public/js/js.js"></script>
+        <script charset="utf-8" type="text/javascript" src="public/js/escenario.js"></script>
+        <script>
+        /**
+        * Init project
+        */
+        $(document).ready(function() {
+            // setup soundmanager2
+                soundManager.setup({
+                url: context.url + 'public/lib/SoundManager2/swf/',
+                flashVersion: 9, // optional: shiny features (default = 8)
+                // optional: ignore Flash where possible, use 100% HTML5 mode
+                // preferFlash: false,
+                onready: function() {
+                  //
+                }
+              });
+            // init app
+            App.init();
+        });
+        </script>
 	</body>
 </html>
