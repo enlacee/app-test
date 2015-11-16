@@ -105,7 +105,7 @@
         evidenciaCargarData: function(indice, data) {
             // contruyendo botones con eventos
             $(VARS.dom_id_evidencia_texto).text(data.texto);
-            $(VARS.dom_id_imagen).attr('src', context.url + data.imagen);
+            $(VARS.dom_id_imagen).attr('src', context.url + '/' + data.imagen);
         },
         evidenciaIniciarJuego: function(indice, data) {
             var me = this;
