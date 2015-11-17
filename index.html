@@ -54,5 +54,39 @@
 			</div>
 
 		</div>
+		<!-- libs -->
+		<script charset="utf-8" type="text/javascript" src="public/lib/jquery/dist/jquery.js"></script>
+		<script charset="utf-8" type="text/javascript" src="public/lib/jquery-storage-api/jquery.storageapi.js"></script>
+		<script>
+			$(document).ready(function() {
+				// init micro plugin jquery
+				$.urlParam = function(name) {
+					var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+					if (results==null) {
+						return null;
+					} else {
+						return results[1] || 0;
+					}
+				}
+
+				
+				// read and save id (localstorage)
+				var ns = $.initNamespaceStorage('ns_name');
+				var storage = ns.localStorage;
+				storage.set('user_id', $.urlParam('user_id'));
+				
+				if ($.urlParam('user_id') == null) {
+					storage.set('user_id', '777');
+				} else {
+					storage.set('user_id', $.urlParam('user_id'));
+				}
+				
+			});
+			// miniscript for get URL params
+
+			
+			
+			
+		</script>
 	</body>
 </html>
