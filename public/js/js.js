@@ -19,6 +19,7 @@
 		dom_id_evidencia_texto: '#evidencia-texto',
 		// form
 		dom_id_form_puntos: '#form-puntos',
+		dom_id_form_opcion_pregunta: '#form-opcion-pregunta',
 		dom_id_form_opcion_respuesta: '#form-opcion-respuesta',
 		dom_class_btn_formulario: '.btn-formulario',
 		dom_id_form_respuesta: '#form-respuesta',
@@ -123,21 +124,13 @@
 		escenarioCargarData: function(indice, data) {
 			var me = this;
 			var indiceMas1 = indice + 1;
-			var indiceForm = me.indiceForm;
-			var dataForm = data.data_evidencia[indiceForm];
+			//var indiceForm = me.indiceForm;
+			//var dataForm = data.data_evidencia[indiceForm];
 			// cambiar data escenario.
 			$(VARS.dom_id_escenario_titulo).text('Escenario '+ indiceMas1);
-            cargarBotones(data.data_evidencia[indiceForm]);
+			
 
-            /**
-			* mostrar botones
-            */
-            function cargarBotones(dataEvidencia) {
-				var row = '{{for data_formulario}}<div class="row"><div class="col-md-12"><button class="btn-formulario col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5" data-respuesta="{{:respuesta}}">{{:~upper(description)}}</button></div></div>{{/for}}';
-				var tmpl = $.templates(row);
-				var tmplHtml = tmpl.render(dataEvidencia, myHelpers);
-				$(VARS.dom_id_form_opcion_respuesta).html(tmplHtml);
-            }
+
 		},
 		escenarioIniciarJuego: function(indice, data) {
             var me = this;
@@ -168,9 +161,25 @@
 			}
         },
         evidenciaCargarData: function(indice, data) {
+			var me = this;
             // contruyendo botones con eventos
             $(VARS.dom_id_evidencia_texto).text(data.texto);
             $(VARS.dom_id_imagen).attr('src', context.url + '/' + data.imagen);
+			
+			// cargar evidencia
+			$(VARS.dom_id_form_opcion_pregunta).text(data.pregunta_text);
+            cargarBotones(data);
+			
+            /**
+			* mostrar botones
+            */
+            function cargarBotones(dataEvidencia) {
+				var row = '{{for data_formulario}}<div class="row"><div class="col-md-12"><button class="btn-formulario col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5" data-respuesta="{{:respuesta}}">{{:~upper(description)}}</button></div></div>{{/for}}';
+				var tmpl = $.templates(row);
+				var tmplHtml = tmpl.render(dataEvidencia, myHelpers);
+				$(VARS.dom_id_form_opcion_respuesta).html(tmplHtml);
+            }
+			
         },
         evidenciaIniciarJuego: function(indice, data) {
             var me = this;
