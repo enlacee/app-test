@@ -131,6 +131,18 @@
 			
 
 
+<<<<<<< HEAD
+=======
+            /**
+			* mostrar botones
+            */
+            function cargarBotones(dataEvidencia) {
+				var row = '{{for data_formulario}}<div class="row"><div class="col-md-12"><button class="btn-formulario col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5" data-respuesta="{{:respuesta}}">{{:~upper(description)}}</button></div></div>{{/for}}';
+				var tmpl = $.templates(row);
+				var tmplHtml = tmpl.render(dataEvidencia, myHelpers);
+				$(VARS.dom_id_form_opcion_respuesta).html(tmplHtml);
+            }
+>>>>>>> 05fda515e8a485e83bb33f93ad0a75b5b3a81e6c
 		},
 		escenarioIniciarJuego: function(indice, data) {
             var me = this;
