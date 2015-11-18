@@ -61,7 +61,10 @@
 						</div>
 
 						<hr>
-
+						
+						<div>
+							<h2 id="form-opcion-pregunta"></h2>	
+						</div>	
 						<div id="form-opcion-respuesta" class="margin-bottom-10">
 ...
 						<!--
@@ -109,7 +112,6 @@
 			</div>
 		</div>
 
-
 		<!-- HANDS INIT-->
 		<div>
 			<div class="popup-hand-left">
@@ -123,30 +125,31 @@
 		<!-- libs -->
 		<script charset="utf-8" type="text/javascript" src="public/lib/jquery/dist/jquery.js">
 		</script>
+		<script charset="utf-8" type="text/javascript" src="public/lib/jquery-storage-api/jquery.storageapi.js"></script>
 		<script charset="utf-8" type="text/javascript" src="public/lib/SoundManager2/script/soundmanager2.js"></script>
 		<script charset="utf-8" type="text/javascript" src="public/lib/jsrender/jsrender.js">
 		</script>
 
 		<script charset="utf-8" type="text/javascript" src="public/js/helpers.js"></script>
 		<script charset="utf-8" type="text/javascript" src="public/js/js.js"></script>
-        <script>
-        /**
-        * Init project
-        */
-        $(document).ready(function() {
-            // setup soundmanager2
-                soundManager.setup({
-                url: context.url + 'public/lib/SoundManager2/swf/',
-                flashVersion: 9, // optional: shiny features (default = 8)
-                // optional: ignore Flash where possible, use 100% HTML5 mode
-                // preferFlash: false,
-                onready: function() {
-                  //
-                }
-              });
-            // init app
-            App.init();
-        });
-        </script>
+		<script>
+		/**
+		* Init project
+		*/
+		$(document).ready(function() {
+			// setup soundmanager2
+			soundManager.setup({
+				url: context.url + 'public/lib/SoundManager2/swf/',
+				flashVersion: 9, // optional: shiny features (default = 8)
+				// optional: ignore Flash where possible, use 100% HTML5 mode
+				// preferFlash: false,
+				onready: function() {
+				//
+				}
+			});
+			// init app
+			App.init();
+		});
+		</script>
 	</body>
 </html>
