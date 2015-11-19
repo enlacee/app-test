@@ -5,15 +5,15 @@
 	// variables localStorage
 	var ns = $.initNamespaceStorage('ns_name');
 	var storage = ns.localStorage; // storage.get('user_id')
-	
-	// variables 
+
+	// variables
 	var VARS = {
 		api_url: 'data.json', //'http://localhost/acopitan/free/app_test_api/home/index',
 		dom_id_preload: '#preload',
 		dom_id_escenario_titulo: '#escenario-titulo',
 		dom_id_escenario_audio: '#escenario-audio',
 		dom_id_escenario_audio_dom: '#escenario-audio-dom',
-		
+
 		dom_id_imagen: '#imagen',
 		// evidencia
 		dom_id_evidencia_texto: '#evidencia-texto',
@@ -43,23 +43,19 @@
 			console.log("loadData()");
 			this.initSetterDom();
 			this.loadData();
-		},		
+		},
 		initSetterDom: function() {
+			var me = this;
 			var data_detail = [];
 			// escuchar eventos del click
 			$(VARS.dom_id_form_opcion_respuesta).on('click', VARS.dom_class_btn_formulario, function() {
-				var btn = $(this);
-				console.log("clicked");
+				var refButton = $(this);
+				me.helpGetDomButtonSuccessWrong(refButton);
 
-				if (btn.attr('data-respuesta') == 'true') {
-					console.log("OK RESPUESTA OK");
-				} else {
-					console.log("FAIL RESPUESTA FAIL");
-				}
-				
+				//container_buttons.find('btn').addClass('btn-warning');
+
 			});
-			
-			
+
 		},
 		/*
 		* cargar datos by API
@@ -69,10 +65,10 @@
 			// seta data play
 			me.quizData.codigo_usuario	= me.helpReadIdUser();
 			me.quizData.fecha_inicio	= me.helpGetDateTime();
-			
+
 			// set data source
 			$.getJSON( VARS.api_url, function( data ) {
-				$(VARS.dom_id_preload).hide(); 
+				$(VARS.dom_id_preload).hide();
 				me.localData = data;
 				me.reformatData();
 				console.log('data cargado!..', me.localData);
@@ -128,25 +124,25 @@
 			//var dataForm = data.data_evidencia[indiceForm];
 			// cambiar data escenario.
 			$(VARS.dom_id_escenario_titulo).text('Escenario '+ indiceMas1);
-			
+
 		},
 		escenarioIniciarJuego: function(indice, data) {
             var me = this;
 			// escenario sound
             me.helpPlayAudioEscenario(data.path_audio, data.data_evidencia);
 
-  
+
 
 
 		},
-		
+
         // PLAY EVIDENCIA
         swichEvidencia: function() {
 			var me = this;
             var a = me.indice;
             var indice = me.indiceEvidencia;
             var data = me.localData[a].data_evidencia;
-            
+
 			if (data.length > 0) {
 				if (indice > (data.length-1)) {
 					alert("juego se termino! " + indiceEvidencia)
@@ -163,11 +159,11 @@
             // contruyendo botones con eventos
             $(VARS.dom_id_evidencia_texto).text(data.texto);
             $(VARS.dom_id_imagen).attr('src', context.url + '/' + data.imagen);
-			
+
 			// cargar evidencia
 			$(VARS.dom_id_form_opcion_pregunta).text(data.pregunta_text);
             cargarBotones(data);
-			
+
             /**
 			* mostrar botones
             */
@@ -177,7 +173,7 @@
 				var tmplHtml = tmpl.render(dataEvidencia, myHelpers);
 				$(VARS.dom_id_form_opcion_respuesta).html(tmplHtml);
             }
-			
+
         },
         evidenciaIniciarJuego: function(indice, data) {
             var me = this;
@@ -212,19 +208,19 @@
 			soundManager.play('mySound2');
 		},
 		helpGetDateTime: function() {
-			var now     = new Date(); 
+			var now     = new Date();
 			var year    = now.getFullYear();
-			var month   = now.getMonth()+1; 
+			var month   = now.getMonth()+1;
 			var day     = now.getDate();
 			var hour    = now.getHours();
 			var minute  = now.getMinutes();
-			var second  = now.getSeconds(); 
+			var second  = now.getSeconds();
 			if(month.toString().length == 1) {
 				var month = '0'+month;
 			}
 			if(day.toString().length == 1) {
 				var day = '0'+day;
-			}   
+			}
 			if(hour.toString().length == 1) {
 				var hour = '0'+hour;
 			}
@@ -233,14 +229,35 @@
 			}
 			if(second.toString().length == 1) {
 				var second = '0'+second;
-			}   
-			var dateTime = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second;   
+			}
+			var dateTime = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second;
 			return dateTime;
 		},
 		helpReadIdUser: function() {
 			return storage.get('user_id');
-		}
+		},
+        helpGetDomButtonSuccessWrong: function(el) {
+			var buttons = $(VARS.dom_id_form_opcion_respuesta).find($('.btn-formulario'));
+	        $(buttons).each(function(key, element) {
+	            if ($.trim(el.text()) === $.trim($(element).text())) {
+					if (el.attr('data-respuesta') == 'false') {
+						el.toggleClass( "x-btn-1-wrong" );
+						soundManager.createSound({
+							id:'error',
+							url: context.url + '/public/audio/extra/error.mp3',
+							onfinish: function() {}
+						});
+						soundManager.play('error');
+					} else if(el.attr('data-respuesta') == 'true') {
+						el.toggleClass( "x-btn-1-green" );
+					}
+				} else {
+					$(element).attr('disabled', 'disabled').addClass('disabled');
+				}
+
+	        });
+
+	        return true;
+    }
 
 	};
-
-
