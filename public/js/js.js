@@ -40,7 +40,6 @@
 		},
 
 		init : function() {
-			console.log("loadData()");
 			this.initSetterDom();
 			this.loadData();
 		},
@@ -51,7 +50,6 @@
 			$(VARS.dom_id_form_opcion_respuesta).on('click', VARS.dom_class_btn_formulario, function() {
 				var refButton = $(this);
 				me.helpGetDomButtonSuccessWrong(refButton);
-
 				//container_buttons.find('btn').addClass('btn-warning');
 
 			});
@@ -110,7 +108,15 @@
 					alert("juego se termino! " + indice)
 				} else {
 					me.escenarioCargarData(indice, data[indice]);
-					me.escenarioIniciarJuego(indice, data[indice]);
+					// sonido escenario
+					console.log("****************ESCENARIO************")
+					console.log('indice', indice);
+					console.log('me.indiceEvidencia', me.indiceEvidencia);
+					console.log('data[indice].path_audio', data[indice].path_audio)
+					console.log("**********************************************")
+
+					alert('helpPlayAudioEscenario', data[indice].path_audio)
+					me.helpPlayAudioEscenario(indice, data[indice].path_audio);
 				}
 			} else {
 				alert("no existe data Escenario");
@@ -126,16 +132,6 @@
 			$(VARS.dom_id_escenario_titulo).text('Escenario '+ indiceMas1);
 
 		},
-		escenarioIniciarJuego: function(indice, data) {
-            var me = this;
-			// escenario sound
-            me.helpPlayAudioEscenario(data.path_audio, data.data_evidencia);
-
-
-
-
-		},
-
         // PLAY EVIDENCIA
         swichEvidencia: function() {
 			var me = this;
@@ -149,6 +145,7 @@
 				} else {
 					me.evidenciaCargarData(indice, data[indice]);
 					me.evidenciaIniciarJuego(indice, data[indice]);
+
 				}
 			} else {
 				alert("no existe data Evidencia");
@@ -178,34 +175,43 @@
         evidenciaIniciarJuego: function(indice, data) {
             var me = this;
 			// escenario sound
-            me.helpPlayAudioEvidencia(data.audio);
-        },
+			// sonido escenario
+			console.log("****************ESCENARIO************")
+			console.log('indice', indice);
+			console.log('me.indiceEvidencia', me.indiceEvidencia);
+			console.log('data.audio', data.audio)
+			console.log("**********************************************")
 
+			alert('helpPlayAudioEvidencia', data.audio)
+            me.helpPlayAudioEvidencia(indice, data.audio);
+        },
 
 		/*
 		************************************************************
 		* HELPER
 		************************************************************
 		*/
-		helpPlayAudioEscenario: function(sourceUrl) {
+		helpPlayAudioEscenario: function(indice, sourceUrl) {
             var me = this;
+			var key = 'soundEscenario' + indice;
             soundManager.createSound({
-                id: 'mySound',
+                id: key,
                 url: context.url + '/' + sourceUrl,
                 onfinish: function() {
                     // al terminar audio
                     me.swichEvidencia();
                 }
             });
-            soundManager.play('mySound');
+            soundManager.play(key);
 		},
-		helpPlayAudioEvidencia: function(sourceUrl) {
+		helpPlayAudioEvidencia: function(indice, sourceUrl) {
+			var key = 'soundEvidencia' + indice;
 			soundManager.createSound({
-				id: 'mySound2',
+				id: key,
 				url: context.url + '/' + sourceUrl,
-				onfinish: function() {alert("helpPlayAudioEvidencia")}
+				onfinish: function() {}
 			});
-			soundManager.play('mySound2');
+			soundManager.play(key);
 		},
 		helpGetDateTime: function() {
 			var now     = new Date();
@@ -236,16 +242,19 @@
 		helpReadIdUser: function() {
 			return storage.get('user_id');
 		},
-        helpGetDomButtonSuccessWrong: function(el) {
+		helpGetDomButtonSuccessWrong: function(el) {
+			var me = this;
 			var buttons = $(VARS.dom_id_form_opcion_respuesta).find($('.btn-formulario'));
-	        $(buttons).each(function(key, element) {
-	            if ($.trim(el.text()) === $.trim($(element).text())) {
+			$(buttons).each(function(key, element) {
+				if ($.trim(el.text()) === $.trim($(element).text())) {
 					if (el.attr('data-respuesta') == 'false') {
 						el.toggleClass( "x-btn-1-wrong" );
 						soundManager.createSound({
 							id:'error',
 							url: context.url + '/public/audio/extra/error.mp3',
-							onfinish: function() {}
+							onfinish: function(el) {
+								me.helpNextLevel(el);
+							}
 						});
 						soundManager.play('error');
 					} else if(el.attr('data-respuesta') == 'true') {
@@ -255,9 +264,48 @@
 					$(element).attr('disabled', 'disabled').addClass('disabled');
 				}
 
-	        });
+			});
 
-	        return true;
-    }
+		return true;
+	},
+	helpNextLevel: function(el) {
+		var me = this;
+		var curData = me.localData;
+		var _1_escenario = me.indice; // escenario
+		var _2_evidencia = me.indiceEvidencia; // evidencia
 
-	};
+
+		// preguntar que nivel
+		// + siguiente nivel		'siguiente escenario'
+		// + siguiente subnivel		'siguiente evidencia'
+		console.log("*****************************************************")
+		console.log("BEFORE");
+		console.log("_1_escenario", _1_escenario);
+		console.log("_2_evidencia", _2_evidencia);
+		console.log("*****************************************************")
+		console.log("_2_evidencia", _2_evidencia);
+		console.log("curData[_1_escenario].data_evidencia.length", (curData[_1_escenario].data_evidencia.length)-1);
+		if (_2_evidencia < (curData[_1_escenario].data_evidencia.length)-1) {
+			_2_evidencia++;
+		} else { alert("entro else", _1_escenario, curData.length);
+			if (_1_escenario < curData.length) { alert("entro iffff");
+				_1_escenario++;
+				_2_evidencia = 0;
+			}
+		}
+
+		console.log("*****************************************************")
+		console.log("AFTER");
+		console.log("_1_escenario", _1_escenario);
+		console.log("_2_evidencia", _2_evidencia);
+		console.log("*****************************************************")
+
+		// SET VALUES
+		me.indice = _1_escenario; // escenario
+		me.indiceEvidencia = _2_evidencia; // evidencia
+		me.swichEscenario();
+
+
+	}
+
+};
