@@ -192,8 +192,8 @@
 		************************************************************
 		*/
 		helpPlayAudioEscenario: function(indice, sourceUrl) {
-            var me = this;
-			var key = 'soundEscenario' + indice;
+			var me = this;
+			var key = 'soundEscenario_' + me.indice +'_' + indice;
             soundManager.createSound({
                 id: key,
                 url: context.url + '/' + sourceUrl,
@@ -205,7 +205,8 @@
             soundManager.play(key);
 		},
 		helpPlayAudioEvidencia: function(indice, sourceUrl) {
-			var key = 'soundEvidencia' + indice;
+			var me = this;
+			var key = 'soundEvidencia_' + me.indice +'_' + indice;
 			soundManager.createSound({
 				id: key,
 				url: context.url + '/' + sourceUrl,
@@ -287,10 +288,24 @@
 		console.log("curData[_1_escenario].data_evidencia.length", (curData[_1_escenario].data_evidencia.length)-1);
 		if (_2_evidencia < (curData[_1_escenario].data_evidencia.length)-1) {
 			_2_evidencia++;
+
+			// NEXT EVIDENCIA
+			// SET VALUES
+			me.indice = _1_escenario; // escenario
+			me.indiceEvidencia = _2_evidencia; // evidencia
+			me.swichEvidencia();
+
 		} else { alert("entro else", _1_escenario, curData.length);
 			if (_1_escenario < curData.length) { alert("entro iffff");
 				_1_escenario++;
 				_2_evidencia = 0;
+
+				// NEXT ESCENARIO
+				// SET VALUES
+				me.indice = _1_escenario; // escenario
+				me.indiceEvidencia = _2_evidencia; // evidencia
+				me.swichEscenario();
+
 			}
 		}
 
@@ -300,10 +315,7 @@
 		console.log("_2_evidencia", _2_evidencia);
 		console.log("*****************************************************")
 
-		// SET VALUES
-		me.indice = _1_escenario; // escenario
-		me.indiceEvidencia = _2_evidencia; // evidencia
-		me.swichEscenario();
+
 
 
 	}
