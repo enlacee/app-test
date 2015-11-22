@@ -37,6 +37,18 @@ body {
     display:block;
     margin:auto;
 }
+/**
+* block left
+*/
+#escenario-titulo {
+    position: absolute;
+	color: white;
+    background: rgba(0,0,0,.5);  
+    top: 0;
+    margin: 0;
+    padding: 0;
+}
+
 #container-img {
 	border:1px solid red;
 	height: 60%;
@@ -73,15 +85,15 @@ body {
 *  Box respuesta!
 */
 #container-quiz {
-	background-color: red;
+	background-color: black;
 }
 #form-opcion-pregunta {
 	margin: 10px 0;
-	height: 30px;
+	min-height: 50px;
 }
 #form-opcion-respuesta {
 	background-color: #7a43b6;
-	min-height: 200px;
+	min-height: 100px;
 }
 #form-respuesta {
 	min-height: 100px;
@@ -98,8 +110,15 @@ body {
 * Puntos
 */
 #div-puntos {
-	
+	background-color: yellow;
 } 
+
+/**
+* div countdown
+*/
+#countdown {
+	background-color: #00b3ee;
+}
 
 /*** css abc ***/
 .x-btn-1-wrong, x-btn-1-wrong:active {

@@ -24,6 +24,8 @@
 		dom_class_btn_formulario: '.btn-formulario',
 		dom_id_form_respuesta: '#form-respuesta',
 		dom_id_div_puntos: '#div-puntos',
+		dom_id_count_down : '#countdown',
+		dom_id_fieldset_blockear: '#fieldset-blockear',
 	};
 
  	var App = {
@@ -33,6 +35,8 @@
 		indiceEvidencia: 0, // evidencia
 		indiceForm: 0,
 		puntos: 0,
+		countdownTimer: false,
+		secondsBase: 9,
 		quizData: {
 			codigo_usuario: '',
 			puntos: 0,
@@ -51,6 +55,7 @@
 			// escuchar eventos del click
 			$(VARS.dom_id_form_opcion_respuesta).on('click', VARS.dom_class_btn_formulario, function() {
 				var refButton = $(this);
+				clearInterval(me.countdownTimer)
 				me.helpGetDomButtonSuccessWrong(refButton);
 				//container_buttons.find('btn').addClass('btn-warning');
 
@@ -70,6 +75,7 @@
 			$.getJSON( VARS.api_url, function( data ) {
 				$(VARS.dom_id_preload).hide();
 				$(VARS.dom_id_div_puntos).html(me.puntos);
+				$(VARS.dom_id_form_respuesta).html('');
 				me.localData = data;
 				me.reformatData();
 				console.log('data cargado! localData', me.localData);
@@ -116,7 +122,6 @@
 
 			if (data.length > 0) {
 				if (indice > (data.length-1)) {
-					alert("juego se termino! " + indice)
 					window.location.href = "final.html";
 				} else {
 					console.log('------------------------');
@@ -136,8 +141,10 @@
 			var me = this;
 			var indiceMas1 = indice + 1;
 
+			$(VARS.dom_id_count_down).text(me.secondsBase); // timer text
 			$(VARS.dom_id_imagen).attr('src', context.url + '/' + data.path_image);
 			$(VARS.dom_id_escenario_titulo).text('Escenario '+ indiceMas1);
+			$(VARS.dom_id_form_respuesta).html('');
 
 		},
         // PLAY EVIDENCIA
@@ -169,9 +176,13 @@
         evidenciaCargarData: function(indice, indiceEvidencia, data) {
 			var me = this;
             // contruyendo botones con eventos
+			$(VARS.dom_id_form_respuesta).html('');
+			$(VARS.dom_id_count_down).text(me.secondsBase); // timer text
             $(VARS.dom_id_evidencia_texto).text(data.texto);
             $(VARS.dom_id_imagen).attr('src', context.url + '/' + data.imagen);
-
+			
+			// blockear fieldset;
+			$(VARS.dom_id_fieldset_blockear).prop('disabled',true);
 			// cargar evidencia
 			$(VARS.dom_id_form_opcion_pregunta).text(data.pregunta_text);
             cargarBotones(data);
@@ -213,12 +224,31 @@
 		},
 		helpPlayAudioEvidencia: function(indice, indiceEvidencia, sourceUrl) {
 			var me = this;
+			var seconds = (me.secondsBase-1);
 			var key = 'soundEvidencia' + '_' + indice +'_' + indiceEvidencia;
 			console.log('evidencia key :', key)
 			soundManager.createSound({
 				id: key,
 				url: context.url + '/' + sourceUrl,
-				onfinish: function() {}
+				onfinish: function() {
+					// desblockear fieldset;
+					$(VARS.dom_id_fieldset_blockear).prop('disabled', false);
+					// timer on
+					me.countdownTimer = setInterval( function() {
+						var remainingSeconds = seconds % 60;
+						$(VARS.dom_id_count_down).text(remainingSeconds);
+						if (seconds === 0) {
+							clearInterval(me.countdownTimer) // stop timer
+							// NEXT LEVEL
+							setTimeout(function() {
+								me.helpNextLevel();
+							}, 100);
+						} else {
+							seconds--;
+						}
+					}, 1000);
+					
+				}
 			});
 			soundManager.play(key);
 		},
@@ -262,6 +292,7 @@
 					if (el.attr('data-respuesta') == 'false') {
 						el.toggleClass( "x-btn-1-wrong" );
 						$(VARS.dom_id_form_respuesta)
+							.removeClass('box-rpta-true')
 							.addClass('box-rpta-false')
 							.html(dataEvidencia.respuesta_false);
 						
@@ -269,21 +300,26 @@
 							id:'error',
 							url: context.url + '/public/audio/extra/error.mp3',
 							onfinish: function(el) {
-								me.helpNextLevel(el);
+								// esperar 2'' para siguiente nivel
+								setTimeout(function(el) {
+									me.helpNextLevel(el);						
+								}, 5000);
 							}
 						});
 						soundManager.play('error');
 					} else if(el.attr('data-respuesta') == 'true') {
 						el.toggleClass( "x-btn-1-green" );
 						$(VARS.dom_id_form_respuesta)
+							.removeClass('box-rpta-false')
 							.addClass('box-rpta-true')
 							.html(dataEvidencia.respuesta_true);
 						
 						me.puntos++;
 						$(VARS.dom_id_div_puntos).html(me.puntos);
+						// esperar 2'' para siguiente nivel
 						setTimeout(function(el) {
 							me.helpNextLevel(el);						
-						}, 800);
+						}, 5000);
 					}
 				} else {
 					$(element).attr('disabled', 'disabled').addClass('disabled');
@@ -315,7 +351,7 @@
 			me.swichEvidencia();
 
 		} else {
-			if (_1_escenario < curData.length) { alert("entro iffff");
+			if (_1_escenario < curData.length) { alert("siguiente escenario");
 				_1_escenario++;
 				_2_evidencia = 0;
 
