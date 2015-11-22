@@ -126,32 +126,32 @@
 		escenarioCargarData: function(indice, data) {
 			var me = this;
 			var indiceMas1 = indice + 1;
-			//var indiceForm = me.indiceForm;
-			//var dataForm = data.data_evidencia[indiceForm];
-			// cambiar data escenario.
+
+			$(VARS.dom_id_imagen).attr('src', context.url + '/' + data.path_image);
 			$(VARS.dom_id_escenario_titulo).text('Escenario '+ indiceMas1);
 
 		},
         // PLAY EVIDENCIA
-        swichEvidencia: function() {
+        swichEvidencia: function() { console.log('OBJECT set2', this)
 			var me = this;
-            var a = me.indice;
-            var indice = me.indiceEvidencia;
-            var data = me.localData[a].data_evidencia;
+            var index = me.indice;
+            var indexEvi = me.indiceEvidencia;
+
+            var data = me.localData[index].data_evidencia;
 
 			if (data.length > 0) {
-				if (indice > (data.length-1)) {
-					alert("juego se termino! " + indiceEvidencia)
+				if (indexEvi > (data.length-1)) {
+					alert("juego se termino! " + indexEvi)
 				} else {
-					me.evidenciaCargarData(indice, data[indice]);
-					me.evidenciaIniciarJuego(indice, data[indice]);
+					me.evidenciaCargarData(index, indexEvi, data[index]);
+					me.evidenciaIniciarJuego(index, indexEvi, data[index]);
 
 				}
 			} else {
 				alert("no existe data Evidencia");
 			}
         },
-        evidenciaCargarData: function(indice, data) {
+        evidenciaCargarData: function(indice, indiceEvidencia, data) {
 			var me = this;
             // contruyendo botones con eventos
             $(VARS.dom_id_evidencia_texto).text(data.texto);
@@ -172,18 +172,18 @@
             }
 
         },
-        evidenciaIniciarJuego: function(indice, data) {
-            var me = this;
+        evidenciaIniciarJuego: function(indice, indiceEvidencia, data) {
+			var me = this;
 			// escenario sound
 			// sonido escenario
 			console.log("****************ESCENARIO************")
 			console.log('indice', indice);
-			console.log('me.indiceEvidencia', me.indiceEvidencia);
+			console.log('indiceEvidencia', indiceEvidencia);
 			console.log('data.audio', data.audio)
 			console.log("**********************************************")
 
 			alert('helpPlayAudioEvidencia', data.audio)
-            me.helpPlayAudioEvidencia(indice, data.audio);
+            me.helpPlayAudioEvidencia(indiceEvidencia, data.audio);
         },
 
 		/*
@@ -193,7 +193,8 @@
 		*/
 		helpPlayAudioEscenario: function(indice, sourceUrl) {
 			var me = this;
-			var key = 'soundEscenario_' + me.indice +'_' + indice;
+			var key = 'soundEscenario' + '_' + indice;
+			console.log('escenario key :', key)
             soundManager.createSound({
                 id: key,
                 url: context.url + '/' + sourceUrl,
@@ -207,6 +208,7 @@
 		helpPlayAudioEvidencia: function(indice, sourceUrl) {
 			var me = this;
 			var key = 'soundEvidencia_' + me.indice +'_' + indice;
+			console.log('evidencia key :', key)
 			soundManager.createSound({
 				id: key,
 				url: context.url + '/' + sourceUrl,
@@ -304,6 +306,7 @@
 				// SET VALUES
 				me.indice = _1_escenario; // escenario
 				me.indiceEvidencia = _2_evidencia; // evidencia
+				console.log('OBJECT set', this)
 				me.swichEscenario();
 
 			}

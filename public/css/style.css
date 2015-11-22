@@ -19,15 +19,27 @@
     display:block;
     margin:auto;
 }
+#container-img {
+	border:1px solid red;
+	height: 60%;
+	width: 100%;
+	padding: 0.5%;
+	background: #fff;
+	overflow: hidden;
+}
+·#container-img img {
+	max-width: 100%;
+	height: auto;
+}
 .popup-hand-left {
-    display: block;
-    position: fixed;
-    bottom: -1%;
-    width: auto;
-    left: 0px;
-    margin: 0 1.5%;
-    z-index: 1;
-    background: red;
+	display: block;
+	position: fixed;
+	bottom: -1%;
+	width: auto;
+	left: 0px;
+	margin: 0 1.5%;
+	z-index: 1;
+	background: red;
 }
 .popup-hand-right {
     display: block;
@@ -41,7 +53,7 @@
 }
 /* view */
 .wrapper {
-	height: 100vh;
+	
 	background-color: yellow;
 }
 
