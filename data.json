@@ -74,14 +74,14 @@
 		"path_audio": "public\/audio\/escenarios\/2.mp3",
 		"path_image": "public\/image\/escenarios\/2.jpg",
 		"data_evidencia": [{
-				"id_evidencia": "1",
-				"imagen": "public\/image\/evidencias\/1\/1.1.jpg",
-				"texto": "CAE de una altura de 03 metros. Al caer se lastima la pierna izquierda.",
-				"audio": "public\/audio\/evidencias\/1\/1.1.mp3",
+				"id_evidencia": "7",
+				"imagen": "public\/image\/evidencias\/2\/2.1.jpg",
+				"texto": "Sin embargo se produjo un peque\u00f1o corte en la mano izquierda.",
+				"audio": "public\/audio\/evidencias\/2\/2.1.mp3",
 				"id_formulario": "1",
 				"respuesta": "1",
-				"respuesta_true": "Correcto, incluso pudo haberse lesionado algo m\u00e1s que la pierna izquierda.",
-				"respuesta_false": "Si hubo un da\u00f1o, en este caso lo recibi\u00f3 Juan muy probablemente no s\u00f3lo en su pierna izquierda\r\n",
+				"respuesta_true": "Correcto. Los cortes y golpes constituyen ya un accidente con da\u00f1os a la persona.",
+				"respuesta_false": " Los cortes y golpes constituyen ya un accidente con da\u00f1os a la persona.",
 				"id_escenario_evidencia": "8",
 				"id_escenario": "2",
 				"titulo": "f1",
@@ -94,44 +94,4 @@
 						"description": "incidente"
 					}]
 			}]
-	}, {
-		"id_escenario": "3",
-		"path_audio": "public\/audio\/escenarios\/3.mp3",
-		"path_image": "public\/image\/escenarios\/3.jpg",
-		"data_evidencia": []
-	}, {
-		"id_escenario": "4",
-		"path_audio": "public\/audio\/escenarios\/4.mp3",
-		"path_image": "public\/image\/escenarios\/4.jpg",
-		"data_evidencia": []
-	}, {
-		"id_escenario": "5",
-		"path_audio": "public\/audio\/escenarios\/5.mp3",
-		"path_image": "public\/image\/escenarios\/5.jpg",
-		"data_evidencia": []
-	}, {
-		"id_escenario": "6",
-		"path_audio": "public\/audio\/escenarios\/6.mp3",
-		"path_image": "public\/image\/escenarios\/6.jpg",
-		"data_evidencia": []
-	}, {
-		"id_escenario": "7",
-		"path_audio": "public\/audio\/escenarios\/7.mp3",
-		"path_image": "public\/image\/escenarios\/7.jpg",
-		"data_evidencia": []
-	}, {
-		"id_escenario": "8",
-		"path_audio": "public\/audio\/escenarios\/8.mp3",
-		"path_image": "public\/image\/escenarios\/8.jpg",
-		"data_evidencia": []
-	}, {
-		"id_escenario": "9",
-		"path_audio": "public\/audio\/escenarios\/9.mp3",
-		"path_image": "public\/image\/escenarios\/9.jpg",
-		"data_evidencia": []
-	}, {
-		"id_escenario": "10",
-		"path_audio": "public\/audio\/escenarios\/10.mp3",
-		"path_image": "public\/image\/escenarios\/10.jpg",
-		"data_evidencia": []
 	}]
