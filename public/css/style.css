@@ -69,7 +69,37 @@ body {
     z-index: 1;
     background: blue;
 }
+/**
+*  Box respuesta!
+*/
+#container-quiz {
+	background-color: red;
+}
+#form-opcion-pregunta {
+	margin: 10px 0;
+	height: 30px;
+}
+#form-opcion-respuesta {
+	background-color: #7a43b6;
+	min-height: 200px;
+}
+#form-respuesta {
+	min-height: 100px;
+}
+.box-rpta-true {
+	background-color: green;
+}
 
+.box-rpta-false {
+	background-color: red;
+}
+
+/**
+* Puntos
+*/
+#div-puntos {
+	
+} 
 
 /*** css abc ***/
 .x-btn-1-wrong, x-btn-1-wrong:active {

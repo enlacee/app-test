@@ -53,53 +53,28 @@
 					<div class="my-box-right col-md-4">
 						<div id="form-puntos" class="margin-bottom-10">
 							<div class="row">
-								<div class="col-md-12">Puntos</div>
+								<div class="col-md-4">Puntos</div>
+								<div class="col-md-8" id="div-puntos">0</div>
 							</div>
-							<div class="row">
-								<div class="col-md-12"></div>
-							</div>
+
 						</div>
 
 						<hr>
-
-						<div>
-							<h2 id="form-opcion-pregunta"></h2>
-						</div>
-						<div id="form-opcion-respuesta" class="margin-bottom-10">
-...
-						<!--
-							<div class="row">
-								<div class="col-md-12">
-									<button class="col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5">ACCIDENTE</button>
-								</div>
+						<div id="container-quiz">
+							<div>
+								<h2 id="form-opcion-pregunta"></h2>
 							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<button class="col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5">INCIDENTE</button>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<button class="col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5">INCIDENTE</button>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<button class="col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5">INCIDENTE</button>
-								</div>
-							</div>-->
-						</div>
+							<div id="form-opcion-respuesta" class="margin-bottom-10">
 
+							</div>
 
-						<div class="row">
-							<div class="col-md-12">
-								<div id="form-respuesta">
-									<pre>...
-									</pre>
+							<div class="row">
+								<div class="col-md-12">
+									<div id="form-respuesta">
+									</div>
 								</div>
 							</div>
 						</div>
-
 						<hr>
 						<div class="row">
 							<div class="col-md-12 debug" style="height:auto">
@@ -131,6 +106,7 @@
 		</script>
 
 		<script charset="utf-8" type="text/javascript" src="public/js/helpers.js"></script>
+		<script charset="utf-8" type="text/javascript" src="public/js/jquery.url.js"></script>
 		<script charset="utf-8" type="text/javascript" src="public/js/js.js"></script>
 		<script>
 		/**
@@ -147,6 +123,22 @@
 				//
 				}
 			});
+			
+			// set hand
+			var ns = $.initNamespaceStorage('ns_name');
+			var storage = ns.localStorage;
+			
+			if ($.urlParam('player') == null) {
+				storage.set('player', '1');
+			} else {
+				storage.set('player', $.urlParam('player'));
+			}
+			// setter hand
+			var idHand = storage.get('player');
+			$('.popup-hand-left > img').attr('src', 'public/image/manos/'+ idHand +'.left.png');
+			$('.popup-hand-right > img').attr('src', 'public/image/manos/'+ idHand +'.right.png');
+			
+			
 			// init app
 			App.init();
 		});

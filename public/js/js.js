@@ -23,6 +23,7 @@
 		dom_id_form_opcion_respuesta: '#form-opcion-respuesta',
 		dom_class_btn_formulario: '.btn-formulario',
 		dom_id_form_respuesta: '#form-respuesta',
+		dom_id_div_puntos: '#div-puntos',
 	};
 
  	var App = {
@@ -31,6 +32,7 @@
 		indice: 0, // escenario
 		indiceEvidencia: 0, // evidencia
 		indiceForm: 0,
+		puntos: 0,
 		quizData: {
 			codigo_usuario: '',
 			puntos: 0,
@@ -67,6 +69,7 @@
 			// set data source
 			$.getJSON( VARS.api_url, function( data ) {
 				$(VARS.dom_id_preload).hide();
+				$(VARS.dom_id_div_puntos).html(me.puntos);
 				me.localData = data;
 				me.reformatData();
 				console.log('data cargado! localData', me.localData);
@@ -97,6 +100,14 @@
 				});
 			});
         },
+		currentEscenario: function() {
+			var me = this;
+			return me.localData[me.indice];
+		},
+		currentEvidencia: function() {
+			var me = this;
+			return me.localData[me.indice].data_evidencia[me.indiceEvidencia];
+		},
         // PLAY ESCENARIO : cambiar de escenario segun indice
 		swichEscenario: function() {
 			var me = this;
@@ -242,12 +253,18 @@
 		},
 		helpGetDomButtonSuccessWrong: function(el) {
 			var me = this;
+			var dataEvidencia = me.currentEvidencia();
 			var buttons = $(VARS.dom_id_form_opcion_respuesta).find($('.btn-formulario'));
+			
 			$(buttons).each(function(key, element) {
 				if ($.trim(el.text()) === $.trim($(element).text())) {
 					el.removeClass('x-btn-yellow');
 					if (el.attr('data-respuesta') == 'false') {
 						el.toggleClass( "x-btn-1-wrong" );
+						$(VARS.dom_id_form_respuesta)
+							.addClass('box-rpta-false')
+							.html(dataEvidencia.respuesta_false);
+						
 						soundManager.createSound({
 							id:'error',
 							url: context.url + '/public/audio/extra/error.mp3',
@@ -258,6 +275,15 @@
 						soundManager.play('error');
 					} else if(el.attr('data-respuesta') == 'true') {
 						el.toggleClass( "x-btn-1-green" );
+						$(VARS.dom_id_form_respuesta)
+							.addClass('box-rpta-true')
+							.html(dataEvidencia.respuesta_true);
+						
+						me.puntos++;
+						$(VARS.dom_id_div_puntos).html(me.puntos);
+						setTimeout(function(el) {
+							me.helpNextLevel(el);						
+						}, 800);
 					}
 				} else {
 					$(element).attr('disabled', 'disabled').addClass('disabled');
@@ -268,6 +294,7 @@
 		return true;
 	},
 	helpNextLevel: function(el) {
+		console.log('EL', el);
 		var me = this;
 		var curData = me.localData;
 		var _1_escenario = me.indice; // escenario
