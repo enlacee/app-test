@@ -38,9 +38,9 @@
 				// GET DATA
 				var dataApp = storage.get('app');
 				var puntos = dataApp.puntos;
-				if (puntos === 0 || puntos >= 1) {
+				if (puntos === 0 || puntos > 1) {
 					$('#point').text(puntos + ' PUNTOS');
-				} else if(puntos == 1) {
+				} else if(puntos === 1) {
 					$('#point').text(puntos + ' PUNTO');
 				}
 					
