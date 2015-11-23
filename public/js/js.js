@@ -353,7 +353,7 @@
 			me.swichEvidencia();
 
 		} else {
-			if (_1_escenario < curData.length) { alert("siguiente escenario");
+			if (_1_escenario < curData.length) { //alert("siguiente escenario");
 				_1_escenario++;
 				_2_evidencia = 0;
 
