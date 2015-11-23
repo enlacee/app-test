@@ -369,6 +369,10 @@
 
 
 
+	},
+	// parar proceso
+	stop: function() {
+		clearInterval(this.countdownTimer);
 	}
 
 };
