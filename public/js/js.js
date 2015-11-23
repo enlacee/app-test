@@ -348,6 +348,7 @@
 			// SET VALUES
 			me.indice = _1_escenario; // escenario
 			me.indiceEvidencia = _2_evidencia; // evidencia
+			storage.set('app', me);
 			me.swichEvidencia();
 
 		} else {
@@ -359,6 +360,7 @@
 				// SET VALUES
 				me.indice = _1_escenario; // escenario
 				me.indiceEvidencia = _2_evidencia; // evidencia
+				storage.set('app', me);
 				me.swichEscenario();
 
 			}
