@@ -140,10 +140,12 @@
 		escenarioCargarData: function(indice, data) {
 			var me = this;
 			var indiceMas1 = indice + 1;
-
-			$(VARS.dom_id_count_down).text(me.secondsBase); // timer text
+			
 			$(VARS.dom_id_imagen).attr('src', context.url + '/' + data.path_image);
 			$(VARS.dom_id_escenario_titulo).text('Escenario '+ indiceMas1);
+			
+			$(VARS.dom_id_count_down).text(me.secondsBase); // timer text
+			$(VARS.dom_id_form_respuesta).removeClass('alert-success alert-danger');
 			$(VARS.dom_id_form_respuesta).html('');
 
 		},
@@ -181,10 +183,11 @@
             $(VARS.dom_id_evidencia_texto).text(data.texto);
             $(VARS.dom_id_imagen).attr('src', context.url + '/' + data.imagen);
 			
+			$(VARS.dom_id_form_respuesta).removeClass('alert-success alert-danger');
 			// blockear fieldset;
 			$(VARS.dom_id_fieldset_blockear).prop('disabled',true);
 			// cargar evidencia
-			$(VARS.dom_id_form_opcion_pregunta).text(data.pregunta_text);
+			$(VARS.dom_id_form_opcion_pregunta).text(data.pregunta_text.toUpperCase());
             cargarBotones(data);
 
             /**
@@ -292,8 +295,7 @@
 					if (el.attr('data-respuesta') == 'false') {
 						el.toggleClass( "x-btn-1-wrong" );
 						$(VARS.dom_id_form_respuesta)
-							.removeClass('box-rpta-true')
-							.addClass('box-rpta-false')
+							.addClass('alert-danger')
 							.html(dataEvidencia.respuesta_false);
 						
 						soundManager.createSound({
@@ -310,8 +312,7 @@
 					} else if(el.attr('data-respuesta') == 'true') {
 						el.toggleClass( "x-btn-1-green" );
 						$(VARS.dom_id_form_respuesta)
-							.removeClass('box-rpta-false')
-							.addClass('box-rpta-true')
+							.addClass('alert-success')
 							.html(dataEvidencia.respuesta_true);
 						
 						me.puntos++;
