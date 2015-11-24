@@ -35,11 +35,13 @@
 		indiceEvidencia: 0, // evidencia
 		indiceForm: 0,
 		puntos: 0,
+		puntos_total: 0,
 		countdownTimer: false,
 		secondsBase: 9,
 		quizData: {
 			codigo_usuario: '',
 			puntos: 0,
+			puntos_total: 0,
 			fecha_inicio: null,
 			fecha_fin: null,
 			data_detalle: []
@@ -77,6 +79,8 @@
 				$(VARS.dom_id_div_puntos).html(me.puntos);
 				$(VARS.dom_id_form_respuesta).html('');
 				me.localData = data;
+				me.puntos_total = data.length;
+				me.quizData.puntos_total = data.length;
 				me.reformatData();
 				console.log('data cargado! localData', me.localData);
 				me.swichEscenario();
@@ -142,7 +146,7 @@
 			var indiceMas1 = indice + 1;
 			
 			$(VARS.dom_id_imagen).attr('src', context.url + '/' + data.path_image);
-			$(VARS.dom_id_escenario_titulo).text('Escenario '+ indiceMas1);
+			$(VARS.dom_id_escenario_titulo).text('Desafio '+ indiceMas1);
 			
 			$(VARS.dom_id_count_down).text(me.secondsBase); // timer text
 			$(VARS.dom_id_form_respuesta).removeClass('alert-success alert-danger');
