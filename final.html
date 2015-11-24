@@ -58,7 +58,8 @@
 				} else if(puntos === 1) {
 					$('#point').text(puntos + ' PUNTO');
 				}
-					
+				
+				enviarDataPost(dataApp);
 				
 
 
@@ -67,7 +68,22 @@
 
 
 
+			function enviarDataPost(data) {
+				var ns = $.initNamespaceStorage('ns_name');
+				var storage = ns.localStorage;
 
+				if (typeof(data.enviado) === 'undefined') {
+					$.post( 'http://localhost/acopitan/free/app_test_api/api/play/data', { data: data.quizData })
+						.done(function( rs ) {
+						console.log('rs', rs)
+				
+						data.enviado = true;
+						storage.set('app', data);
+					}, "json");
+				} else {
+					console.log("clear")
+				}				
+			}
 		</script>
 	</body>
 </html>
