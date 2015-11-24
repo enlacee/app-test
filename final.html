@@ -71,8 +71,7 @@
 			function enviarDataPost(data) {
 				var ns = $.initNamespaceStorage('ns_name');
 				var storage = ns.localStorage;
-				
-				console.log('data.enviado', data.enviado);
+
 				if (typeof(data.enviado) === 'undefined') {
 					$.post( 'http://localhost/acopitan/free/app_test_api/api/play/data', { data: data.quizData })
 						.done(function( rs ) {
