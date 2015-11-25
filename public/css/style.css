@@ -71,7 +71,7 @@ body {
 }
 #container-img {
 	border:0px solid red;
-	height: 54%;
+	height: 60%;
 	width: 100%;
 	/*padding: 0.5%;*/
 	background: black;
@@ -95,6 +95,7 @@ filter: progid:DXImageTransform.Microsoft.Shadow(strength = 3, direction = 225, 
     font-size: 1.7em;
 	padding: 5px;
 	color:black;
+	min-height: 160px;
 	
 -moz-box-shadow: 0px 0px 7px #000000;
 -webkit-box-shadow: 0px 0px 7px #000000;
@@ -167,9 +168,9 @@ box-shadow: 0px 0px 7px #000000;
 	min-height: 204px;
 }
 #form-respuesta {
-	min-height: 100px;
+	min-height: 85px;
 	margin-bottom: 0;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: bold;
 }
 .box-rpta-true {

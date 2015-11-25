@@ -35,7 +35,6 @@
 		indiceEvidencia: 0, // evidencia
 		indiceForm: 0,
 		puntos: 0,
-		puntos_total: 0,
 		countdownTimer: false,
 		secondsBase: 9,
 		quizData: {
@@ -79,8 +78,6 @@
 				$(VARS.dom_id_div_puntos).html(me.puntos);
 				$(VARS.dom_id_form_respuesta).html('');
 				me.localData = data;
-				me.puntos_total = data.length;
-				me.quizData.puntos_total = data.length;
 				me.reformatData();
 				console.log('data cargado! localData', me.localData);
 				me.swichEscenario();
@@ -95,12 +92,15 @@
 			* Recorrer todo los items y establecer respuesta correcta
 			* respuesta = true
 			*/
+		   var counterEvi = 0;
 			$.each(me.localData, function(index1, value1) {
-
+				
+				counterEvi = counterEvi + parseInt(value1.data_evidencia.length);
+				
 				$.each(value1.data_evidencia,function(index2, value2) {
-
+					
 					$.each(value2.data_formulario, function(index3, value3) {
-
+						
 						if (value2.respuesta == value3.id_alternativa) {
 							value3.respuesta = true;
 						} else {
@@ -109,6 +109,9 @@
 					});
 				});
 			});
+			
+			// setear contador de evidencias
+			me.quizData.puntos_total = counterEvi;
         },
 		currentEscenario: function() {
 			var me = this;
@@ -151,6 +154,8 @@
 			$(VARS.dom_id_count_down).text(me.secondsBase); // timer text
 			$(VARS.dom_id_form_respuesta).removeClass('alert-success alert-danger');
 			$(VARS.dom_id_form_respuesta).html('');
+			// limpiar texto
+			$(VARS.dom_id_evidencia_texto).text('');
 
 		},
         // PLAY EVIDENCIA
@@ -163,14 +168,8 @@
 
 			if (data_evidencia.length > 0) {
 				if (indexEvi > (data_evidencia.length-1)) {
-					alert("juego se termino! " + indexEvi)
+					// alert("juego se termino! " + indexEvi)
 				} else {
-					console.log('------------------------');
-					console.log('EVIDENCIA DATA');
-					console.log('indice', index);
-					console.log('indexEvi', indexEvi);
-					console.log('DATA', data_evidencia[indexEvi]);
-					console.log('------------------------');
 					me.evidenciaCargarData(index, indexEvi, data_evidencia[indexEvi]);
 					me.evidenciaIniciarJuego(index, indexEvi, data_evidencia[indexEvi]);
 
@@ -184,9 +183,14 @@
             // contruyendo botones con eventos
 			$(VARS.dom_id_form_respuesta).html('');
 			$(VARS.dom_id_count_down).text(me.secondsBase); // timer text
-            $(VARS.dom_id_evidencia_texto).text(data.texto);
+			// efecct imagen text
+			$(VARS.dom_id_evidencia_texto).text('');
+			$(VARS.dom_id_imagen).hide().fadeIn();
             $(VARS.dom_id_imagen).attr('src', context.url + '/' + data.imagen);
-			
+			window.setTimeout(function() {
+				showText(VARS.dom_id_evidencia_texto, data.texto, 0, 50);
+			}, 1000);
+
 			$(VARS.dom_id_form_respuesta).removeClass('alert-success alert-danger');
 			// blockear fieldset;
 			$(VARS.dom_id_fieldset_blockear).prop('disabled',true);
@@ -224,7 +228,9 @@
                 url: context.url + '/' + sourceUrl,
                 onfinish: function() {
                     // al terminar audio
-                    me.swichEvidencia();
+                    window.setTimeout(function(){
+						me.swichEvidencia()
+					}, 1500);
                 }
             });
             soundManager.play(key);
@@ -353,6 +359,8 @@
 			// SET VALUES
 			me.indice = _1_escenario; // escenario
 			me.indiceEvidencia = _2_evidencia; // evidencia
+			// set puntos
+			me.quizData.puntos = me.puntos;
 			storage.set('app', me);
 			me.swichEvidencia();
 
@@ -365,6 +373,8 @@
 				// SET VALUES
 				me.indice = _1_escenario; // escenario
 				me.indiceEvidencia = _2_evidencia; // evidencia
+				// set puntos
+				me.quizData.puntos = me.puntos;
 				storage.set('app', me);
 				me.swichEscenario();
 

@@ -20,6 +20,7 @@
     "jquery-storage-api": "jQuery-Storage-API#~1.7.5",
     "jquery.easing": "~1.3.1",
     "font-awesome": "~4.4.0",
-    "jsrender": "~1.0.0-rc.70"
+    "jsrender": "~1.0.0-rc.70",
+    "jquery-validation": "~1.14.0"
   }
 }
