@@ -151,7 +151,7 @@
 			$(VARS.dom_id_imagen).attr('src', context.url + '/' + data.path_image);
 			$(VARS.dom_id_escenario_titulo).text('Desafio '+ indiceMas1);
 			
-			$(VARS.dom_id_count_down).text(me.secondsBase); // timer text
+			$(VARS.dom_id_count_down).text(me.helpGetSecondString(me.secondsBase)); // timer text
 			$(VARS.dom_id_form_respuesta).removeClass('alert-success alert-danger');
 			$(VARS.dom_id_form_respuesta).html('');
 			// limpiar texto
@@ -182,7 +182,7 @@
 			var me = this;
             // contruyendo botones con eventos
 			$(VARS.dom_id_form_respuesta).html('');
-			$(VARS.dom_id_count_down).text(me.secondsBase); // timer text
+			$(VARS.dom_id_count_down).text(me.helpGetSecondString(me.secondsBase)); // timer text
 			// efecct imagen text
 			$(VARS.dom_id_evidencia_texto).text('');
 			$(VARS.dom_id_imagen).hide().fadeIn();
@@ -202,7 +202,7 @@
 			* mostrar botones
             */
             function cargarBotones(dataEvidencia) {
-				var row = '{{for data_formulario}}<div class="row"><div class="col-md-12"><button class="btn-formulario x-btn-yellow col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5" data-respuesta="{{:respuesta}}">{{:~upper(description)}}</button></div></div>{{/for}}';
+				var row = '{{for data_formulario}}<div class="row"><div class="col-md-12"><button class="btn-formulario x-btn-yellow col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5" data-respuesta="{{:respuesta}}">{{:~upper(description)}}               <span class="glyphicon glyphicon-circle-arrow-right x-btn-arrow-red color-red" aria-hidden="true"></span>                  </button></div></div>{{/for}}';
 				var tmpl = $.templates(row);
 				var tmplHtml = tmpl.render(dataEvidencia, myHelpers);
 				$(VARS.dom_id_form_opcion_respuesta).html(tmplHtml);
@@ -248,8 +248,8 @@
 					$(VARS.dom_id_fieldset_blockear).prop('disabled', false);
 					// timer on
 					me.countdownTimer = setInterval( function() {
-						var remainingSeconds = seconds % 60;
-						$(VARS.dom_id_count_down).text(remainingSeconds);
+						var n = seconds % 60;
+						$(VARS.dom_id_count_down).text(me.helpGetSecondString(n));
 						if (seconds === 0) {
 							clearInterval(me.countdownTimer) // stop timer
 							// NEXT LEVEL
@@ -264,6 +264,9 @@
 				}
 			});
 			soundManager.play(key);
+		},
+		helpGetSecondString: function(n){
+		     return n > 9 ? "" + n: "0" + n;
 		},
 		helpGetDateTime: function() {
 			var now     = new Date();
@@ -313,24 +316,31 @@
 							url: context.url + '/public/audio/extra/error.mp3',
 							onfinish: function(el) {
 								// esperar 2'' para siguiente nivel
-								setTimeout(function(el) {
-									me.helpNextLevel(el);						
-								}, 5000);
+                                                                    setTimeout(function(el) {
+                                                                            me.helpNextLevel(el);						
+                                                                    }, 5000);
 							}
 						});
 						soundManager.play('error');
 					} else if(el.attr('data-respuesta') == 'true') {
+                                                me.puntos++;
 						el.toggleClass( "x-btn-1-green" );
 						$(VARS.dom_id_form_respuesta)
 							.addClass('alert-success')
 							.html(dataEvidencia.respuesta_true);
-						
-						me.puntos++;
 						$(VARS.dom_id_div_puntos).html(me.puntos);
-						// esperar 2'' para siguiente nivel
-						setTimeout(function(el) {
-							me.helpNextLevel(el);						
-						}, 5000);
+                                                
+						soundManager.createSound({
+							id:'good',
+							url: context.url + '/public/audio/extra/good.mp3',
+							onfinish: function(el) {
+								// esperar 2'' para siguiente nivel
+                                                                setTimeout(function(el) {
+                                                                        me.helpNextLevel(el);						
+                                                                }, 5000);
+							}
+						});
+                                                soundManager.play('good');
 					}
 				} else {
 					$(element).attr('disabled', 'disabled').addClass('disabled');

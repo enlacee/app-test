@@ -6,30 +6,24 @@
 		<link rel="stylesheet" href="public/css/base.css" media="screen" charset="utf-8">
 		<link rel="stylesheet" href="public/css/style.css" media="screen" charset="utf-8">
         <script type="text/javascript"><!-- application/ld+json -->
-        var context = { "@context" : "http://schema.org", "@type" : "Organization", "name" : "App Test", "url" : "http://enlacee.github.io/app-test" }
+        var context = { "@context" : "http://schema.org", "@type" : "Organization", "name" : "App Test", "url" : "http://localhost/acopitan/free/app_test" }
         </script>
 	</head>
-	<body>
+	<body class="bg2">
 		<div class="wrapper">
-			<div class="container">		
+			<div class="container">
+
 				<!--<div class="row margin-botton-50">&nbsp;</div>-->
 				<div class="row">
 					<div class="my-box-left col-md-8">
-						<div class="row">
-							<div class="col-md-5 my-header font-1">
-								header logo
-							</div>
-							<div class="col-md-5 my-header font-1">
-								<h1 id="escenario-titulo" class="font-1">Desafio 1</h1>
-							</div>
-						</div>
-
-						<!--<div class="row">
-							<div class="col-md-12 my-header">
-								IMAGE
-								<div id="preload"><img src="public/image/preload.gif"></div>
-							</div>
-						</div>-->
+                                            <div class="row margin-bottom-30">
+                                                <div class="col-md-7">
+                                                        <div class="div-logo"><img src="public/image/logo.png"/></div>                                                        
+                                                </div>
+                                                <div class="col-md-5 my-header font-1 text-right">
+                                                        <h1 id="escenario-titulo" class="font-1">Desafio 1</h1>
+                                                </div>
+                                            </div>
 
 						<div class="row">
 							<!--<div class="col-md-12">
@@ -38,8 +32,8 @@
 						</div>
 						<div class="row margin-bottom-10">
 							<div class="col-md-12">
-								<div class="my-img-center" id="container-img">
-									<img id="imagen" src="public/image/default.png" class="img-responsive">
+								<div class="my-img-center margin-bottom-40" id="container-img">
+									<img id="imagen" src="public/image/bg-escenario.png" class="img-responsive">
 									
 								</div>
 							</div>
@@ -50,7 +44,7 @@
 								<!--<div>
 									<h1>Historia <i class="fa fa-volume-up"></i></h1>
 								</div>-->
-								<div id="evidencia-texto" class=" font-1 white-transparent">
+								<div id="evidencia-texto" class=" font-1">
 									
 								</div>
 							</div>
@@ -59,28 +53,38 @@
 					</div>
 
 					<div class="my-box-right col-md-4">
+						<div class="row margin-bottom-20">
+							<div class="col-md-12 "> 
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-md-12 "> 
-								<div class="div-id-user col-md-12 font-2"><h2>Usuario : 43234</h2></div>
+								<div class="div-id-user col-md-12 font-1 margin-bottom-5"><h2>Usuario : 43234</h2></div>
 							</div>
 						</div>
 						
-						<div id="form-puntos" class="row_ margin-bottom-10">
-							<div class="col-md-6 div-puntos-bg">Puntos: <span  id="div-puntos">0</span></div>
-							<div class="col-md-1"></div>
-							<div class="col-md-5 countdown-bg font-1" ><span id="countdown">9</span> ''</div>
-
+						<div id="form-puntos" class="row_ margin-bottom-10 font-1 nopadding">
+							<div class="col-md-12 div-puntos-bg">
+							    <div class="pull-left nopadding" >Puntos: <span id="div-puntos">0</span></div>
+							    <div class="pull-right nopadding countdown-bg font-1" style="padding-top: 12px !important;line-height: normal;">
+								<div class="row clock nopadding">
+								    <div class="pull-left"><img src="public/image/cronometro.png" /></div>
+								    <div class="pull-right" id="countdown">00</div>
+								</div>
+							    </div>
+							</div>
 						</div>
 
-						<div id="container-quiz" class="margin-bottom-30">
+						<div id="container-quiz" class="margin-bottom-10">
+						    <div class="box-gray">
 							<fieldset id="fieldset-blockear" disabled="">
 							<div class="row">
 								<div class="col-md-12">
-									<h2 id="form-opcion-pregunta"></h2>
+									<h2 id="form-opcion-pregunta" class="font-1"></h2>
 								</div>								
 							</div>
 							<div class="row">
-								<div id="form-opcion-respuesta" class="col-md-12 margin-bottom-10">
+								<div id="form-opcion-respuesta" class="col-md-12 margin-bottom-10 font-3">
 
 								</div>
 							</div>
@@ -90,12 +94,13 @@
 								</div>
 							</div>
 							</fieldset>
+						    </div>
 						</div>
 
 						<div class="row">
 							<div class=" col-md-12 debug_xxx" style="height:auto">
 								<div class="mapa">
-									MAPA
+								    <img class="img-responsive" src="public/image/mukito-mapa.png" />
 								</div>								
 							</div>
 						</div>
@@ -105,16 +110,6 @@
 			</div>
 		</div>
 
-		<!-- HANDS INIT-->
-		<div>
-			<div class="popup-hand-left">
-				<img class="img-responsive" src="public/image/manos/1.left.png">
-			</div>
-			<div class="popup-hand-right">
-				<img class="img-responsive" src="public/image/manos/1.right.png">
-			</div>
-		</div>
-		<!-- HANDS END -->
 		<!-- libs -->
 		<script charset="utf-8" type="text/javascript" src="public/lib/jquery/dist/jquery.js">
 		</script>
