@@ -154,8 +154,12 @@
 			$(VARS.dom_id_count_down).text(me.helpGetSecondString(me.secondsBase)); // timer text
 			$(VARS.dom_id_form_respuesta).removeClass('alert-success alert-danger');
 			$(VARS.dom_id_form_respuesta).html('');
-			// limpiar texto
+			
+			// limpiar texto : iniciar efecto escribir letra
 			$(VARS.dom_id_evidencia_texto).text('');
+			window.setTimeout(function() {
+				showText(VARS.dom_id_evidencia_texto, data.description, 0, 50);
+			}, 1000);
 
 		},
         // PLAY EVIDENCIA
