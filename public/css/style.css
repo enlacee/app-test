@@ -114,10 +114,15 @@ body {
         background-position: top center;
 	overflow: hidden;
 }
-#container-img img {
-	max-width: 80%;
-	height: auto;
+
+#container-img div img {
+    max-width: 80%;
+    height: auto;
+    margin: auto;
+    border-radius: 30px;
+    border: 0px solid #E6E7E8;
 }
+
 #evidencia-texto {
     font-size: 1.1em;
     color: black;
@@ -180,8 +185,8 @@ body {
 }
 #form-opcion-pregunta {
     margin: 2px 0;
-    min-height: 40px;
-    font-size: 18px;
+    min-height: 38px;
+    font-size: 15px;
 }
 #form-opcion-respuesta {
 	min-height: 204px;
