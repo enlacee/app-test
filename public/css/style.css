@@ -289,7 +289,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88a82a', end
 
 
 }
-.x-btn-yellow:active {
+.x-btn-yellow:active, .x-btn-yellow:hover {
     font-family: 'ArialRoundedMTBold';
     border: 3px solid #0066cc;
     color:#0066cc;
