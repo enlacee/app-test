@@ -1,99 +1,4 @@
 [{
-	"id_escenario": "7",
-	"description": "Oh no!!! MUKITO est\u00e1 entrando a un frente luego de la voladura. A\u00fan nadie desquinch\u00f3.",
-	"path_audio": "public\/audio\/escenarios\/7.mp3",
-	"path_image": "public\/image\/escenarios\/7.png",
-	"data_evidencia": [{
-		"id_evidencia": "32",
-		"imagen": "public\/image\/evidencias\/7\/7.1.png",
-		"texto": "Una plancha de roca cae sobre MUKITO.",
-		"audio": "public\/audio\/evidencias\/7\/7.1.mp3",
-		"id_formulario": "1",
-		"respuesta": "1",
-		"respuesta_true": "Correcto, la ca\u00edda de alg\u00fan objeto sobre la persona genera un da\u00f1o, por lo tanto es un accidente.",
-		"respuesta_false": "La ca\u00edda de alg\u00fan objeto sobre la persona genera un da\u00f1o, por lo tanto es un accidente.",
-		"id_escenario_evidencia": "60",
-		"id_escenario": "7",
-		"titulo": "f1",
-		"pregunta_text": "LA  SIGUIENTE SITUACI\u00d3N ES UN:",
-		"data_formulario": [{
-			"id_alternativa": "1",
-			"description": "accidente"
-		    }, {
-			"id_alternativa": "2",
-			"description": "incidente"
-		    }]
-	    }, {
-		"id_evidencia": "33",
-		"imagen": "public\/image\/evidencias\/7\/7.2.png",
-		"texto": "La plancha cubri\u00f3 totalmente a MUKITO.",
-		"audio": "public\/audio\/evidencias\/7\/7.2.mp3",
-		"id_formulario": "2",
-		"respuesta": "3",
-		"respuesta_true": "Correcto, el da\u00f1o es recibido por MUKITO, por tanto el accidente es con da\u00f1os a la persona.",
-		"respuesta_false": " El da\u00f1o es recibido por MUKITO, por tanto el accidente es con da\u00f1os a la persona.",
-		"id_escenario_evidencia": "61",
-		"id_escenario": "7",
-		"titulo": "f2",
-		"pregunta_text": "COMO CLASIFICAMOS EL TIPO DE ACCIDENTE O INCIDENTE:",
-		"data_formulario": [{
-			"id_alternativa": "3",
-			"description": "persona"
-		    }, {
-			"id_alternativa": "4",
-			"description": "material"
-		    }, {
-			"id_alternativa": "5",
-			"description": "medio ambiente"
-		    }]
-	    }, {
-		"id_evidencia": "34",
-		"imagen": "public\/image\/evidencias\/7\/7.3.png",
-		"texto": "MUKITO, ha muerto producto del aplastamiento de la plancha.",
-		"audio": "public\/audio\/evidencias\/7\/7.3.mp3",
-		"id_formulario": "3",
-		"respuesta": "8",
-		"respuesta_true": "Correcto, lamentablemente en esta situaci\u00f3n el accidente es catalogado como mortal.",
-		"respuesta_false": "Lamentablemente en esta situaci\u00f3n el accidente es catalogado como mortal.",
-		"id_escenario_evidencia": "62",
-		"id_escenario": "7",
-		"titulo": "f3",
-		"pregunta_text": "COMO CLASIFICAMOS EL TIPO DE ACCIDENTE O INCIDENTE:",
-		"data_formulario": [{
-			"id_alternativa": "6",
-			"description": "leve"
-		    }, {
-			"id_alternativa": "7",
-			"description": "incapacitante"
-		    }, {
-			"id_alternativa": "8",
-			"description": "mortal"
-		    }]
-	    }, {
-		"id_evidencia": "35",
-		"imagen": "public\/image\/evidencias\/7\/7.4.png",
-		"texto": "\u00bfSeg\u00fan la matriz, cual es el potencial del evento?",
-		"audio": "public\/audio\/evidencias\/7\/7.4.mp3",
-		"id_formulario": "5",
-		"respuesta": "13",
-		"respuesta_true": null,
-		"respuesta_false": null,
-		"id_escenario_evidencia": "63",
-		"id_escenario": "7",
-		"titulo": "f5",
-		"pregunta_text": "CUAL ES EL POTENCIAL DEL EVENTO?",
-		"data_formulario": [{
-			"id_alternativa": "13",
-			"description": "alto"
-		    }, {
-			"id_alternativa": "14",
-			"description": "medio"
-		    }, {
-			"id_alternativa": "15",
-			"description": "bajo"
-		    }]
-	    }]
-    }, {
 	"id_escenario": "8",
 	"description": "MUKITO se encuentra en sus d\u00edas de descanso. Nada mejor que cocinar un poco!",
 	"path_audio": "public\/audio\/escenarios\/8.mp3",
@@ -295,7 +200,7 @@
 		"id_evidencia": "44",
 		"imagen": "public\/image\/evidencias\/10\/10.1.png",
 		"texto": "En el despacho de combustible, MUKITO pierde el control de la manguera y se derraman 03 galones del hidrocarburo.",
-		"audio": "public\/audio\/evidencias\/10\/10.2.mp3",
+		"audio": "public\/audio\/evidencias\/10\/10.1.mp3",
 		"id_formulario": "1",
 		"respuesta": "1",
 		"respuesta_true": "Correcto, el derrame del hidrocarburo constituye un accidente.",
@@ -315,7 +220,7 @@
 		"id_evidencia": "45",
 		"imagen": "public\/image\/evidencias\/10\/10.2.png",
 		"texto": "El combustible derramado entr\u00f3 en contacto con la tierra. Inmediatamente se procedi\u00f3 a limpiar la zona afectada.",
-		"audio": "public\/audio\/evidencias\/10\/10.3.mp3",
+		"audio": "public\/audio\/evidencias\/10\/10.2.mp3",
 		"id_formulario": "2",
 		"respuesta": "5",
 		"respuesta_true": "Correcto, al entrar en contacto con la tierra, el accidente es contra el medio ambiente.",
@@ -338,7 +243,7 @@
 		"id_evidencia": "46",
 		"imagen": "public\/image\/evidencias\/10\/10.3.png",
 		"texto": "\u00bfSeg\u00fan la matriz, cual es el potencial del evento?",
-		"audio": "public\/audio\/evidencias\/10\/10.4.mp3",
+		"audio": "public\/audio\/evidencias\/10\/10.3.mp3",
 		"id_formulario": "5",
 		"respuesta": "14",
 		"respuesta_true": null,

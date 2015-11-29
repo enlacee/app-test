@@ -9,6 +9,7 @@
 	// variables
 	var VARS = {
 		api_url: 'data.json', //'http://localhost/acopitan/free/app_test_api/home/index',
+		window_live: true,
 		dom_id_preload: '#preload',
 		dom_id_escenario_titulo: '#escenario-titulo',
 		dom_id_escenario_audio: '#escenario-audio',
@@ -59,6 +60,24 @@
 				clearInterval(me.countdownTimer)
 				me.helpGetDomButtonSuccessWrong(refButton);
 				//container_buttons.find('btn').addClass('btn-warning');
+
+			});
+			
+			/**
+			* Detener timer, cuando el usuario quiere salir de la applicacion
+			*/
+			$(window).focus(function() {
+		    	VARS.window_live = true;
+			});
+
+			$(window).blur(function() {
+				//do something
+				if (VARS.window_live == true) {
+					if (confirm('¿Estas seguro que desea salir?')) {
+						VARS.window_live = false;
+						clearInterval(me.countdownTimer);
+					}
+				}
 
 			});
 
@@ -250,20 +269,23 @@
 				onfinish: function() {
 					// desblockear fieldset;
 					$(VARS.dom_id_fieldset_blockear).prop('disabled', false);
-					// timer on
-					me.countdownTimer = setInterval( function() {
-						var n = seconds % 60;
-						$(VARS.dom_id_count_down).text(me.helpGetSecondString(n));
-						if (seconds === 0) {
-							clearInterval(me.countdownTimer) // stop timer
-							// NEXT LEVEL
-							setTimeout(function() {
-								me.helpNextLevel();
-							}, 100);
-						} else {
-							seconds--;
-						}
-					}, 1000);
+
+					if (VARS.window_live === true) {
+						// timer on
+						me.countdownTimer = setInterval( function() {
+							var n = seconds % 60;
+							$(VARS.dom_id_count_down).text(me.helpGetSecondString(n));
+							if (seconds === 0) {
+								clearInterval(me.countdownTimer) // stop timer
+								// NEXT LEVEL
+								setTimeout(function() {
+									me.helpNextLevel();
+								}, 100);
+							} else {
+								seconds--;
+							}
+						}, 1000);						
+					}
 					
 				}
 			});
