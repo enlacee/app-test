@@ -77,6 +77,9 @@
 					if (confirm('¿Estas seguro que desea salir?')) {
 						VARS.window_live = false;
 						clearInterval(me.countdownTimer);
+
+						// alternativa
+						window.location = "index.html?id_user=" + storage.get('user_id');
 					} else {
 						VARS.window_live = true;
 					}
