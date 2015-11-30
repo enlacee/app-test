@@ -69,7 +69,7 @@
 		    	VARS.window_live = true;
 			});
 
-			$(window).blur(function() {
+			/*$(window).blur(function() {
 				//do something
 				if (VARS.window_live == true) {
 					if (confirm('¿Estas seguro que desea salir?')) {
@@ -80,7 +80,7 @@
 					}
 				}
 
-			});
+			});*/
 
 		},
 		/*
