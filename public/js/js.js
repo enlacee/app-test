@@ -73,13 +73,16 @@
 				//do something
 				console.log(VARS.window_live == true);
 				
-				if (VARS.window_live == true) {
-					if (confirm('¿Estás seguro que desea salir?')) {
+				if (VARS.window_live === true) {
+					var flag = confirm('¿Estás seguro que desea salir?');
+					if (flag === true) {
 						VARS.window_live = false;
 						clearInterval(me.countdownTimer);
 
 						// alternativa
 						window.location = "index.html?id_user=" + storage.get('user_id');
+					} else if (flag === false) {
+						VARS.window_live = true;
 					} else {
 						VARS.window_live = true;
 					}
