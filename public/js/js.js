@@ -66,11 +66,13 @@
 			* Detener timer, cuando el usuario quiere salir de la applicacion
 			*/
 			$(window).focus(function() {
-		    	VARS.window_live = true;
+		    	//VARS.window_live = true;
 			});
 
-			/*$(window).blur(function() {
+			$(window).blur(function() {
 				//do something
+				console.log(VARS.window_live == true);
+				
 				if (VARS.window_live == true) {
 					if (confirm('¿Estas seguro que desea salir?')) {
 						VARS.window_live = false;
@@ -80,7 +82,7 @@
 					}
 				}
 
-			});*/
+			});
 
 		},
 		/*
