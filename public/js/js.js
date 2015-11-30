@@ -74,7 +74,7 @@
 				console.log(VARS.window_live == true);
 				
 				if (VARS.window_live == true) {
-					if (confirm('¿Estas seguro que desea salir?')) {
+					if (confirm('¿Estás seguro que desea salir?')) {
 						VARS.window_live = false;
 						clearInterval(me.countdownTimer);
 
