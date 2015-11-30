@@ -15,6 +15,7 @@
 		dom_id_escenario_audio: '#escenario-audio',
 		dom_id_escenario_audio_dom: '#escenario-audio-dom',
 
+		dom_id_user: '#id_user',
 		dom_id_imagen: '#imagen',
 		// evidencia
 		dom_id_evidencia_texto: '#evidencia-texto',
@@ -59,10 +60,8 @@
 				var refButton = $(this);
 				clearInterval(me.countdownTimer)
 				me.helpGetDomButtonSuccessWrong(refButton);
-				//container_buttons.find('btn').addClass('btn-warning');
-
 			});
-			
+
 			/**
 			* Detener timer, cuando el usuario quiere salir de la applicacion
 			*/
@@ -76,6 +75,8 @@
 					if (confirm('¿Estas seguro que desea salir?')) {
 						VARS.window_live = false;
 						clearInterval(me.countdownTimer);
+					} else {
+						VARS.window_live = true;
 					}
 				}
 
@@ -96,6 +97,8 @@
 				$(VARS.dom_id_preload).hide();
 				$(VARS.dom_id_div_puntos).html(me.puntos);
 				$(VARS.dom_id_form_respuesta).html('');
+				$(VARS.dom_id_user).html(me.quizData.codigo_usuario);
+				
 				me.localData = data;
 				me.reformatData();
 				console.log('data cargado! localData', me.localData);
@@ -225,7 +228,7 @@
 			* mostrar botones
             */
             function cargarBotones(dataEvidencia) {
-				var row = '{{for data_formulario}}<div class="row"><div class="col-md-12"><button class="btn-formulario x-btn-yellow col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5" data-respuesta="{{:respuesta}}">{{:~upper(description)}}               <span class="glyphicon glyphicon-circle-arrow-right x-btn-arrow-red color-red" aria-hidden="true"></span>                  </button></div></div>{{/for}}';
+				var row = '{{for data_formulario}}<div class="row"><div class="col-md-12"><button class="btn-formulario x-btn-yellow col-md-12 col-sm-12 col-xs-12 btn btn-lg margin-bottom-5" value="{{:id_alternativa}}" data-respuesta="{{:respuesta}}">{{:~upper(description)}}               <span class="glyphicon glyphicon-circle-arrow-right x-btn-arrow-red color-red" aria-hidden="true"></span>                  </button></div></div>{{/for}}';
 				var tmpl = $.templates(row);
 				var tmplHtml = tmpl.render(dataEvidencia, myHelpers);
 				$(VARS.dom_id_form_opcion_respuesta).html(tmplHtml);
@@ -260,6 +263,7 @@
 		},
 		helpPlayAudioEvidencia: function(indice, indiceEvidencia, sourceUrl) {
 			var me = this;
+			var dataEvidencia = me.currentEvidencia();
 			var seconds = (me.secondsBase-1);
 			var key = 'soundEvidencia' + '_' + indice +'_' + indiceEvidencia;
 			console.log('evidencia key :', key)
@@ -276,7 +280,13 @@
 							var n = seconds % 60;
 							$(VARS.dom_id_count_down).text(me.helpGetSecondString(n));
 							if (seconds === 0) {
-								clearInterval(me.countdownTimer) // stop timer
+								clearInterval(me.countdownTimer); // stop timer
+								// SEND ANSWER
+								me.addDetalleQuizData(
+									dataEvidencia.id_escenario_evidencia,
+									null,
+									'SIN-RESPONDER'
+								);
 								// NEXT LEVEL
 								setTimeout(function() {
 									me.helpNextLevel();
@@ -332,7 +342,14 @@
 				if ($.trim(el.text()) === $.trim($(element).text())) {
 					el.removeClass('x-btn-yellow');
 					if (el.attr('data-respuesta') == 'false') {
-						el.toggleClass( "x-btn-1-wrong" );
+						// Send answer
+						me.addDetalleQuizData(
+							dataEvidencia.id_escenario_evidencia,
+							$(element).val(),
+							'INCORRECTO'
+						);
+
+						el.toggleClass( "x-btn-1-wrong");
 						$(VARS.dom_id_form_respuesta)
 							.addClass('alert-danger')
 							.html(dataEvidencia.respuesta_false);
@@ -342,31 +359,38 @@
 							url: context.url + '/public/audio/extra/error.mp3',
 							onfinish: function(el) {
 								// esperar 2'' para siguiente nivel
-                                                                    setTimeout(function(el) {
-                                                                            me.helpNextLevel(el);						
-                                                                    }, 5000);
+								setTimeout(function(el) {
+									me.helpNextLevel(el);
+								}, 5000);
 							}
 						});
 						soundManager.play('error');
-					} else if(el.attr('data-respuesta') == 'true') {
-                                                me.puntos++;
+					} else if (el.attr('data-respuesta') == 'true') {
+						// Send answer
+						me.addDetalleQuizData(
+							dataEvidencia.id_escenario_evidencia,
+							$(element).val(),
+							'CORRECTO'
+						);
+
+						me.puntos++;
 						el.toggleClass( "x-btn-1-green" );
 						$(VARS.dom_id_form_respuesta)
 							.addClass('alert-success')
 							.html(dataEvidencia.respuesta_true);
 						$(VARS.dom_id_div_puntos).html(me.puntos);
-                                                
+
 						soundManager.createSound({
 							id:'good',
 							url: context.url + '/public/audio/extra/good.mp3',
 							onfinish: function(el) {
 								// esperar 2'' para siguiente nivel
-                                                                setTimeout(function(el) {
-                                                                        me.helpNextLevel(el);						
-                                                                }, 5000);
+								setTimeout(function(el) {
+									me.helpNextLevel(el);
+								}, 5000);
 							}
 						});
-                                                soundManager.play('good');
+						soundManager.play('good');
 					}
 				} else {
 					$(element).attr('disabled', 'disabled').addClass('disabled');
@@ -416,10 +440,17 @@
 
 			}
 		}
-
-
-
-
+	},
+	/**
+	* Agregar item *calificacion detalle*
+	*/
+	addDetalleQuizData : function(id_escenario_evidencia, id_respuesta_USER, message) {
+		var me = this;
+		me.quizData.data_detalle.push({
+			id_escenario_evidencia : id_escenario_evidencia,
+			respuesta : id_respuesta_USER,
+			description : message
+		});
 	},
 	// parar proceso
 	stop: function() {

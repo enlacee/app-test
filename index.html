@@ -1,6 +1,7 @@
 <html>
 	<head>
-		<meta charset="utf-8" /> 
+		<meta charset="utf-8" />
+		<link rel="shortcut icon" type="image/png" href="favicon.png"/>
 		<title>Home</title>
 		<link rel="stylesheet" href="public/lib/bootstrap/dist/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
 		<link rel="stylesheet" href="public/css/base.css" media="screen" charset="utf-8">
@@ -64,10 +65,12 @@
 		<script charset="utf-8" type="text/javascript" src="public/lib/jquery-storage-api/jquery.storageapi.js"></script>
 		<script charset="utf-8" type="text/javascript" src="public/js/jquery.url.js"></script>
 		<script>
+			var storage;
+			
 			$(document).ready(function() {
 				// read and save id (localstorage)
 				var ns = $.initNamespaceStorage('ns_name');
-				var storage = ns.localStorage;
+				storage = ns.localStorage;
 				storage.set('user_id', $.urlParam('user_id'));
 				
 				if ($.urlParam('user_id') == null) {
@@ -78,7 +81,6 @@
 				
 			});
 			// miniscript for get URL params
-			alert("test del 8 - 15 ");
 		</script>
 	</body>
 </html>
