@@ -171,11 +171,16 @@
 			var indiceMas1 = indice + 1;
 			
 			$(VARS.dom_id_imagen).attr('src', context.url + '/' + data.path_image);
-			$(VARS.dom_id_escenario_titulo).text('Desafio '+ indiceMas1);
+			$(VARS.dom_id_escenario_titulo).text('Desafio '+ indiceMas1 + '/' + me.localData.length);
 			
 			$(VARS.dom_id_count_down).text(me.helpGetSecondString(me.secondsBase)); // timer text
 			$(VARS.dom_id_form_respuesta).removeClass('alert-success alert-danger');
 			$(VARS.dom_id_form_respuesta).html('');
+
+			// blockear fieldset;
+			$(VARS.dom_id_fieldset_blockear).prop('disabled',true);
+			$(VARS.dom_id_form_opcion_respuesta).html('');
+			$(VARS.dom_id_form_opcion_pregunta).text('')
 			
 			// limpiar texto : iniciar efecto escribir letra
 			$(VARS.dom_id_evidencia_texto).text('');
