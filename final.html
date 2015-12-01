@@ -294,10 +294,11 @@
 
 	<script charset="utf-8" type="text/javascript" src="public/js/jquery.url.js"></script>
 	<script>
-			    var storage;
-
-			    $(document).ready(function () {
-
+	/***
+	* Accion 01
+	*/
+		    var storage;
+		    $(document).ready(function () {
 				// read and save id (localstorage)
 				var ns = $.initNamespaceStorage('ns_name');
 				storage = ns.localStorage;
@@ -320,41 +321,39 @@
 				    keyboard: true
 				});
 
-			    });
+		    });
 			    // miniscript for get URL params
 
-
-
-			    function enviarDataPost(data) {
+ 
+		    function enviarDataPost(data) {
 				var ns = $.initNamespaceStorage('ns_name');
 				var storage = ns.localStorage;
 
 				if (typeof (data.enviado) === 'undefined') {
-				    $.post(context.url + '/api/play/data', {data: data.quizData})
-					    .done(function (rs) {
-						console.log('rs', rs)
-
+				    $.post(context.url + '/api/play/data', { data: data.quizData })
+					.done(function (rs) {
 						data.enviado = true;
 						storage.set('app', data);
 
 						if (typeof (rs.id) != 'undefined') {
-						    storage.set('id_juego', rs.id);
+							storage.set('id_juego', rs.id);
 						}
 
-					    }, "json");
+				    }, "json");
 				} else {
-				    console.log("clear")
+				    
+				    storage.set('id_juego', '');
 				}
-			    }
+		    }
 	</script>
 
 
 	<script>
 	    /**
-	     * page contact
+	     * Accion 02
 	     * 
 	     */
-	    $(document).ready(function () {
+    $(document).ready(function () {
 		// read and save id (localstorage)
 		// GET DATA
 		var user_id = storage.get('user_id');
@@ -363,42 +362,49 @@
 		var message = $("#contact-message");
 		$(contact).validate({
 		    submitHandler: function (form) {
-			var dataPost = contact.serialize();
-			dataPost += '&codigo_usuario=' + user_id;
-			dataPost += '&id_juego=' + storage.get('id_juego');
+				var dataPost = contact.serialize();
+				var id_juego = storage.get('id_juego');
 
-			$.ajax({
-			    type: 'POST',
-			    url: context.url + '/api/encuesta/data',
-			    data: dataPost,
-			    success: function (data) {
-				console.log('data', data)
-				if (data.status === true) {
-				    //contact.hide();
-				    contact[0][0].disabled = true;
-				    contact[0].reset();
-				    message.removeClass('hide')
-					    .removeClass('alert alert-warning')
-					    .addClass('alert alert-success');
-				    ;
-				    message.text("Envio datos.");
-				    $('#gridSystemModal').modal('hide')
+				dataPost += '&codigo_usuario=' + user_id;
+				dataPost += '&id_juego=' + id_juego;
+
+				if (typeof(id_juego) != 'undefined' && id_juego > 0) {
+				$.ajax({
+					type: 'POST',
+					url: context.url + '/api/encuesta/data',
+					data: dataPost,
+				    success: function (data) {
+						if (data.status === true) {
+						    //contact.hide();
+						    contact[0][0].disabled = true;
+						    contact[0].reset();
+						    message.removeClass('hide')
+							    .removeClass('alert alert-warning')
+							    .addClass('alert alert-success');
+
+						    message.text("Envio datos.");
+						    $('#gridSystemModal').modal('hide');
+						} else {
+						    message_bad.removeClass('hide')
+							    .removeClass('alert alert-success')
+							    .addClass('alert alert-warning');
+						    message.text("Error de Envio.");
+						}
+				    },
+				    error: function (errorThrown) {
+						console.log(errorThrown);
+				    }
+				}); // end ajax
+
+				
 				} else {
-				    message_bad.removeClass('hide')
-					    .removeClass('alert alert-success')
-					    .addClass('alert alert-warning');
-				    message.text("Error de Envio.");
+					alert("No se me enviaron sus datos!")
 				}
-			    },
-			    error: function (errorThrown) {
-				console.log(errorThrown);
-			    }
-			});
 
-		    }
+			}
 		});
 
-	    });
+    });
 
 	</script>
     </body>
