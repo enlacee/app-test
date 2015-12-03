@@ -71,10 +71,12 @@
 				// read and save id (localstorage)
 				var ns = $.initNamespaceStorage('ns_name');
 				storage = ns.localStorage;
-				storage.set('user_id', $.urlParam('user_id'));
+				//storage.set('user_id', $.urlParam('user_id'));
 				
-				if ($.urlParam('user_id') == null) {
-					storage.set('user_id', 'zero');
+				if ($.urlParam('user_id') == null || $.urlParam('user_id') == '' ) {
+					if ( typeof(storage.get('user_id')) === 'undefined' ) {
+						storage.set('user_id', 'zero');
+					}					
 				} else {
 					storage.set('user_id', $.urlParam('user_id'));
 				}

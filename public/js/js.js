@@ -74,6 +74,7 @@
 				console.log(VARS.window_live == true);
 				
 				if (VARS.window_live === true) {
+					clearInterval(me.countdownTimer);
 					var flag = confirm('¿Estás seguro que desea salir?');
 					if (flag === true) {
 						VARS.window_live = false;
@@ -266,10 +267,14 @@
                 id: key,
                 url: context.url + '/' + sourceUrl,
                 onfinish: function() {
-                    // al terminar audio
-                    window.setTimeout(function(){
-						me.swichEvidencia()
-					}, 1500);
+
+                	if (VARS.window_live === true) {
+						// al terminar audio
+						window.setTimeout(function(){
+							me.swichEvidencia()
+						}, 1500);
+                	}
+
                 }
             });
             soundManager.play(key);
